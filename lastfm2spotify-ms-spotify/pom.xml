@@ -25,7 +25,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <failOnNoContracts>false</failOnNoContracts>
+                    <!-- remove after adding contracts -->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
