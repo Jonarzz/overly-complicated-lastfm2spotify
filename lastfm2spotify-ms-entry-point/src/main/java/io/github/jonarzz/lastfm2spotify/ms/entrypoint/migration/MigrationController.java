@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping("migration")
 public class MigrationController {
 
-    private Logger LOGGER = LoggerFactory.getLogger(MigrationController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MigrationController.class);
 
     @PostMapping("{lastFmUsername}/loved")
     public void migrateLovedTracks(@PathVariable String lastFmUsername,
