@@ -24,8 +24,14 @@
 
     <properties>
         <java.version>15</java.version>
+        <!-- dependency versions -->
         <spring-cloud.version>2020.0.2-SNAPSHOT</spring-cloud.version>
         <spring-cloud.contract.version>3.0.2-SNAPSHOT</spring-cloud.contract.version>
+        <asciidoctor.version>1.5.8</asciidoctor.version>
+        <!-- Sonar analysis configuration -->
+        <sonar.projectKey>Jonarzz_overly-complicated-lastfm2spotify</sonar.projectKey>
+        <sonar.organization>jonarzz</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -101,7 +107,7 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>1.5.8</version>
+                <version>${asciidoctor.version}</version>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
