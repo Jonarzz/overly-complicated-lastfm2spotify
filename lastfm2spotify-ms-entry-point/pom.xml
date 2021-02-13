@@ -25,8 +25,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <!-- remove after adding contracts -->
-                    <skip>true</skip>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint.ContractTestBase</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

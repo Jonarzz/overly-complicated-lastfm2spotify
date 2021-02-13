@@ -1,0 +1,7 @@
+== Authorization API
+
+=== Spotify authorization
+Request
+include::{snippets}/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-request.adoc[]
+Response
+include::{snippets}/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-response.adoc[]
