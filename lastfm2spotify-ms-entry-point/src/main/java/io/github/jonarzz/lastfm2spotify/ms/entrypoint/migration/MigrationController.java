@@ -17,7 +17,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("migration")
-@CrossOrigin("*")
+@CrossOrigin("${lastfm2spotify.web.accepted-origin-host}")
 public class MigrationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MigrationController.class);

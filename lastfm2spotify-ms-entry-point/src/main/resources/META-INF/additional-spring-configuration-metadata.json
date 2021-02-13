@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "lastfm2spotify.web.accepted-origin-host",
+      "type": "java.lang.String",
+      "description": "Host for which requests may be handled by the application (Cross-Origin Resource Sharing)."
+    }
+  ]
+}

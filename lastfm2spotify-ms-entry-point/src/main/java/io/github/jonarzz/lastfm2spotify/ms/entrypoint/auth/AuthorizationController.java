@@ -13,7 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("auth")
-@CrossOrigin("*")
+@CrossOrigin("${lastfm2spotify.web.accepted-origin-host}")
 public class AuthorizationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationController.class);
