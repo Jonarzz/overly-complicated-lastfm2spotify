@@ -453,10 +453,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect3">
 <h4 id="_spotify_authorization">Spotify authorization</h4>
 <div class="paragraph">
-<p>Request
-Unresolved directive in ../../../lastfm2spotify-ms-entry-point/src/main/asciidoc/auth.adoc - include::../../../target/generated-snippets/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-request.adoc[]
-Response
-Unresolved directive in ../../../lastfm2spotify-ms-entry-point/src/main/asciidoc/auth.adoc - include::../../../target/generated-snippets/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-response.adoc[]</p>
+<p>Request</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /auth/spotify HTTP/1.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 302 Found
+Location: https://accounts.spotify.com/pl/authorize?client_id=123</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -465,7 +476,7 @@ Unresolved directive in ../../../lastfm2spotify-ms-entry-point/src/main/asciidoc
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-14 08:07:36 UTC
+Last updated 2021-02-14 09:20:27 UTC
 </div>
 </div>
 </body>
