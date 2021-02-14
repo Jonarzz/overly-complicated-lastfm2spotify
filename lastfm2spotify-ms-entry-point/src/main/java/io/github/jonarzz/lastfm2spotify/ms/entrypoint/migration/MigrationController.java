@@ -33,7 +33,7 @@ public class MigrationController {
     @GetMapping("{lastFmUsername}/loved/status")
     public SseEmitter subscribeForMigrationEvents(@PathVariable String lastFmUsername) {
         LOGGER.info("Retrieved a subscription for LastFM loved migration events for user: {}", lastFmUsername);
-        return migrationEventService.getEmitter(lastFmUsername);
+        return migrationEventService.createEmitter(lastFmUsername);
     }
 
     @PostMapping("{lastFmUsername}/loved")

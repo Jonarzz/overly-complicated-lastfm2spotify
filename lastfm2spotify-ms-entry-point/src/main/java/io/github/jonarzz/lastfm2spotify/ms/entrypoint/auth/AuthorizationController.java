@@ -22,7 +22,7 @@ public class AuthorizationController {
     public ResponseEntity<Void> loginToSpotify() {
         LOGGER.info("Spotify login URI requested");
         return ResponseEntity.status(HttpStatus.FOUND)
-                             // TODO to be replaced with Spotify login URI
+                             // TODO to be replaced with Spotify login URI (from ms-spotify call)
                              .location(URI.create("https://accounts.spotify.com/pl/authorize?client_id=123"))
                              .build();
     }

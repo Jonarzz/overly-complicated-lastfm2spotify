@@ -2,3 +2,5 @@
 
 :leveloffset: +1
 include::./auth.adoc[]
+
+include::./migration.adoc[]

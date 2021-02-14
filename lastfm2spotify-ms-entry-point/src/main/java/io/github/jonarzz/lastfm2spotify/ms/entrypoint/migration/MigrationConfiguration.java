@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 class MigrationConfiguration {
 
     @Bean
-    MigrationEventService migrationEventService(MigrationEventEmitterCreationStrategy migrationEventEmitterCreationStrategy) {
-        return new MigrationEventService(migrationEventEmitterCreationStrategy);
+    MigrationEventService migrationEventService(MigrationEventEmitters migrationEventEmitters) {
+        return new MigrationEventService(migrationEventEmitters);
     }
 
     @Bean
-    MigrationEventEmitterCreationStrategy migrationEventEmitterCreationStrategy() {
-        return new DefaultMigrationEventEmitterCreationStrategy();
+    MigrationEventEmitters migrationEventEmitterCreationStrategy() {
+        return new DefaultMigrationEventEmitters();
     }
 
     @Bean

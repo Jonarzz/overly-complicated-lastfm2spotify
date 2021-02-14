@@ -5,35 +5,35 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 class MigrationEventService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MigrationEventService.class);
 
-    private MigrationEventEmitterCreationStrategy migrationEventEmitterCreationStrategy;
+    private MigrationEventEmitters migrationEventEmitters;
 
-    private Map<String, SseEmitter> sseEmittersGroupedByLastFmUsername;
-
-    MigrationEventService(MigrationEventEmitterCreationStrategy migrationEventEmitterCreationStrategy) {
-        this.migrationEventEmitterCreationStrategy = migrationEventEmitterCreationStrategy;
-        sseEmittersGroupedByLastFmUsername = new ConcurrentHashMap<>();
+    MigrationEventService(MigrationEventEmitters migrationEventEmitters) {
+        this.migrationEventEmitters = migrationEventEmitters;
     }
 
-    SseEmitter getEmitter(String lastFmUsername) {
-        return sseEmittersGroupedByLastFmUsername.computeIfAbsent(lastFmUsername, migrationEventEmitterCreationStrategy::create);
+    SseEmitter createEmitter(String lastFmUsername) {
+        return migrationEventEmitters.create(lastFmUsername);
     }
 
     void emit(String lastFmUsername, Object emittable) {
-        LOGGER.info("Emitting {} for LastFM user: {}", emittable, lastFmUsername);
-        try {
-            getEmitter(lastFmUsername)
-                    .send(emittable);
-        } catch (IOException exception) {
-            LOGGER.error("Cannot emit event " + emittable + " for LastFM user '" + lastFmUsername + "', reason: " + exception.getMessage(),
-                         exception);
+        LOGGER.info("Emitting '{}' for LastFM user: {}", emittable, lastFmUsername);
+        for (SseEmitter emitter : migrationEventEmitters.get(lastFmUsername)) {
+            try {
+                emitter.send(emittable);
+            } catch (IOException exception) {
+                LOGGER.error("Cannot for LastFM user '" + lastFmUsername + "', reason: " + exception.getMessage());
+                migrationEventEmitters.dispose(lastFmUsername, emitter);
+            }
         }
+    }
+
+    void completeEmitting(String lastFmUsername) {
+        migrationEventEmitters.dispose(lastFmUsername);
     }
 
 }
