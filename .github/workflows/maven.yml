@@ -37,3 +37,11 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+    - name: Prepare public directory for GitHub Pages
+      run: |
+        mkdir public
+        mv target/generated-docs/index.html public
+    - name: Deploy to GitHub Pages branch
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
