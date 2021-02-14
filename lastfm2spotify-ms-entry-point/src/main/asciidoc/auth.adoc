@@ -1,9 +1,7 @@
 = Authorization API
 
-:snippets-rel: {baseDir}/lastfm2spotify-ms-entry-point/target/generated-snippets
-
 == Spotify authorization
 Request
-include::{snippets-rel}/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-request.adoc[]
+include::{snippets}/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-request.adoc[]
 Response
-include::{snippets-rel}/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-response.adoc[]
+include::{snippets}/AuthTest_validate_shouldRedirectToSpotifyAuthorizationUrl()/http-response.adoc[]
