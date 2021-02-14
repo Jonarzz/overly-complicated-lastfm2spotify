@@ -1,3 +1,4 @@
 = Entry point (public)
+
 :leveloffset: +1
 include::./auth.adoc[]
