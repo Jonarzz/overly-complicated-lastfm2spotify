@@ -1,6 +1,6 @@
 = Authorization API
 
-:snippets-rel: ../../../target/generated-snippets
+:snippets-rel: {baseDir}/lastfm2spotify-ms-entry-point/target/generated-snippets
 
 == Spotify authorization
 Request

@@ -118,6 +118,9 @@
                         <configuration>
                             <backend>html</backend>
                             <doctype>book</doctype>
+                            <attributes>
+                                <baseDir>${project.basedir}</baseDir>
+                            </attributes>
                         </configuration>
                     </execution>
                 </executions>
