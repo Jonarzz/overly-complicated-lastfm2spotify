@@ -439,6 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_entry_point_public">Entry point (public)</a>
 <ul class="sectlevel2">
 <li><a href="#_authorization_api">Authorization API</a></li>
+<li><a href="#_migration_api">Migration API</a></li>
 </ul>
 </li>
 </ul>
@@ -471,12 +472,39 @@ Location: https://accounts.spotify.com/pl/authorize?client_id=123</code></pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_migration_api">Migration API</h3>
+<div class="sect3">
+<h4 id="_migration_status">Migration status</h4>
+<div class="paragraph">
+<p>Request</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /migration/username1/loved/status HTTP/1.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">Service Sent Events</a> emitter is returned. It streams events to
+subscribers when
+migration status changes.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-14 09:42:23 UTC
+Last updated 2021-02-14 12:19:54 UTC
 </div>
 </div>
 </body>
