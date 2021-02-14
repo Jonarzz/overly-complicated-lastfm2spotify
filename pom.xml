@@ -7,6 +7,7 @@
         <module>lastfm2spotify-ms-entry-point</module>
         <module>lastfm2spotify-ms-lastfm</module>
         <module>lastfm2spotify-ms-spotify</module>
+        <module>lastfm2spotify-docs</module>
     </modules>
 
     <parent>
@@ -119,7 +120,7 @@
                             <backend>html</backend>
                             <doctype>book</doctype>
                             <attributes>
-                                <baseDir>${project.basedir}</baseDir>
+                                <baseDir>${project.parent.basedir}</baseDir>
                             </attributes>
                         </configuration>
                     </execution>
