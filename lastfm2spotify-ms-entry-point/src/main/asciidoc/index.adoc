@@ -1,3 +1,3 @@
-= LastFM to Spotify API
-
-include::auth.adoc[]
+= Entry point (public)
+:leveloffset: +1
+include::./auth.adoc[]

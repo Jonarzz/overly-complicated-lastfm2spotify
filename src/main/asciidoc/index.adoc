@@ -1,0 +1,5 @@
+= LastFM to Spotify API
+:toc:
+
+:leveloffset: +1
+include::../../../lastfm2spotify-ms-entry-point/src/main/asciidoc/index.adoc[]
