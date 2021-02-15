@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "lastfm2spotify.api.lastfm.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL of LastFM API."
+    }
+  ]
+}
