@@ -9,10 +9,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 class LovedTracksConfiguration {
 
     @Bean
-    LovedTracksService lovedTracksService(@Value("${lastfm2spotify.api.lastfm.base-url}") String baseUrl) {
-        return new LovedTracksService(WebClient.builder()
-                                               .baseUrl(baseUrl)
-                                               .build());
+    LovedTracksService lovedTracksService(WebClient lastFmApiClient,
+                                          @Value("${lastfm2spotify.api.lastfm.api-key}") String apiKey) {
+        return new LovedTracksService(lastFmApiClient, apiKey);
+    }
+
+    @Bean
+    WebClient lastFmApiClient(@Value("${lastfm2spotify.api.lastfm.base-url}") String baseUrl) {
+        return WebClient.builder()
+                        .baseUrl(baseUrl)
+                        .build();
     }
 
 }

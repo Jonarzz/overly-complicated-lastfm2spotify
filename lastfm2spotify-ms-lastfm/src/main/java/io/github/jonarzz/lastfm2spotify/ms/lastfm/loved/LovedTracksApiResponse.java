@@ -4,15 +4,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
-@JsonDeserialize(using = LovedTrackDeserializer.class)
+import java.util.List;
+
+@JsonDeserialize(using = LovedTracksApiResponseDeserializer.class)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Getter(AccessLevel.PACKAGE)
 @EqualsAndHashCode
 @ToString
-class LovedTrack {
+class LovedTracksApiResponse {
 
-    private String artist;
-    private String title;
+    private PagingMetadata pagingMetadata;
+    private List<LovedTrack> lovedTracks;
 
 }

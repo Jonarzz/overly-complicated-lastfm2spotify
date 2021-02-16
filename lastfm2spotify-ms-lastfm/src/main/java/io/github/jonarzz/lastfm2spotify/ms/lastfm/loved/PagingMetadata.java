@@ -1,18 +1,20 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
-@JsonDeserialize(using = LovedTrackDeserializer.class)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Getter(AccessLevel.PACKAGE)
 @EqualsAndHashCode
 @ToString
-class LovedTrack {
+class PagingMetadata {
 
-    private String artist;
-    private String title;
+    private int page;
+    private int perPage;
+    private int total;
+    private int totalPages;
 
 }
