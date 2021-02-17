@@ -26,7 +26,7 @@ class MigrationEventService {
             try {
                 emitter.send(emittable);
             } catch (IOException exception) {
-                LOGGER.error("Cannot for LastFM user '" + lastFmUsername + "', reason: " + exception.getMessage());
+                LOGGER.error("Cannot for LastFM user '%s', reason: %s".formatted(lastFmUsername, exception.getMessage()));
                 migrationEventEmitters.dispose(lastFmUsername, emitter);
             }
         }
