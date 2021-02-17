@@ -442,6 +442,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_migration_api">Migration API</a></li>
 </ul>
 </li>
+<li><a href="#_lastfm_internal">LastFM (internal)</a>
+<ul class="sectlevel2">
+<li><a href="#_loved_tracks_api">Loved tracks API</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -501,10 +506,40 @@ migration status changes.</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_lastfm_internal">LastFM (internal)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_loved_tracks_api">Loved tracks API</h3>
+<div class="sect3">
+<h4 id="_user_has_no_loved_tracks">User has no loved tracks</h4>
+<div class="paragraph">
+<p>Request</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /loved/no_loved_tracks_user HTTP/1.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+
+[ ]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-17 17:59:04 UTC
+Last updated 2021-02-17 19:27:04 UTC
 </div>
 </div>
 </body>
