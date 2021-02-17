@@ -34,7 +34,7 @@ public abstract class ContractTestBase {
                                                                      preprocessRequest(prettyPrint(),
                                                                                        removeHeaders("Host")),
                                                                      preprocessResponse(prettyPrint(),
-                                                                                        removeHeaders("Vary"))))
+                                                                                        removeHeaders("Vary", "Content-Length"))))
                                                   .build());
     }
 

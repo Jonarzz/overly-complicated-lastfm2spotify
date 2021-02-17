@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/\\?method=user\\.getlovedtracks&user=no_loved_tracks_user&api_key=.{32}&page=1&format=json"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "lovedtracks": {
+        "@attr": {
+          "page": "1",
+          "perPage": "50",
+          "total": "0",
+          "totalPages": "0"
+        },
+        "track": []
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

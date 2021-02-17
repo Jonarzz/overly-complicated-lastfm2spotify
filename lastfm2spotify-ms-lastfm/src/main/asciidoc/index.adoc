@@ -1,0 +1,4 @@
+= LastFM (internal)
+
+:leveloffset: +1
+include::./loved.adoc[]

@@ -39,10 +39,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <!-- remove after adding contracts -->
-                    <skip>true</skip>
-                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.commons.test.ContractTestBase</baseClassForTests>
-                    <basePackageForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint</basePackageForTests>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.lastfm.loved.LovedApiCallsTestBase</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

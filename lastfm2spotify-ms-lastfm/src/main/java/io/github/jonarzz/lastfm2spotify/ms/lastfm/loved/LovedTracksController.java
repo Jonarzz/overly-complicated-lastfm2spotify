@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("loved")
@@ -21,7 +22,7 @@ public class LovedTracksController {
     }
 
     @GetMapping("{username}")
-    public Flux<LovedTrack> getLovedTracks(@PathVariable String username) {
+    public List<LovedTrack> getLovedTracks(@PathVariable String username) {
         LOGGER.info("Retrieving loved tracks for user: {}", username);
         return lovedTracksService.getLovedTracks(username);
     }

@@ -1,0 +1,7 @@
+= Loved tracks API
+
+== User has no loved tracks
+Request
+include::{snippets}/LovedTest_validate_shouldReturnEmptyIfNoLovedTracksFound()/http-request.adoc[]
+Response
+include::{snippets}/LovedTest_validate_shouldReturnEmptyIfNoLovedTracksFound()/http-response.adoc[]
