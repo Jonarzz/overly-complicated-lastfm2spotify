@@ -16,6 +16,16 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.github.jonarzz</groupId>
+            <artifactId>lastfm2spotify-commons</artifactId>
+            <version>1.0.0</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -25,7 +35,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint.ContractTestBase</baseClassForTests>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.commons.test.ContractTestBase</baseClassForTests>
+                    <basePackageForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint</basePackageForTests>
                 </configuration>
             </plugin>
         </plugins>

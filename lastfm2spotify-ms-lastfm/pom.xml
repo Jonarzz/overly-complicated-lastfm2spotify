@@ -21,6 +21,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.jonarzz</groupId>
+            <artifactId>lastfm2spotify-commons</artifactId>
+            <version>1.0.0</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -34,6 +41,8 @@
                     <testFramework>JUNIT5</testFramework>
                     <!-- remove after adding contracts -->
                     <skip>true</skip>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.commons.test.ContractTestBase</baseClassForTests>
+                    <basePackageForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint</basePackageForTests>
                 </configuration>
             </plugin>
         </plugins>

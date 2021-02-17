@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.entrypoint;
+package io.github.jonarzz.lastfm2spotify.commons.test;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;

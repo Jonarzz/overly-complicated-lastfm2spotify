@@ -4,6 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
+        <module>lastfm2spotify-commons</module>
         <module>lastfm2spotify-ms-entry-point</module>
         <module>lastfm2spotify-ms-lastfm</module>
         <module>lastfm2spotify-ms-spotify</module>
