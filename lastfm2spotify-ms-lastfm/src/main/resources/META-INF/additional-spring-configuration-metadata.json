@@ -4,6 +4,16 @@
       "name": "lastfm2spotify.api.lastfm.base-url",
       "type": "java.lang.String",
       "description": "Base URL of LastFM API."
+    },
+    {
+      "name": "lastfm2spotify.api.lastfm.single-page-limit",
+      "type": "java.lang.String",
+      "description": "Max number of results from LastFM API per single request."
+    },
+    {
+      "name": "lastfm2spotify.api.lastfm.api-key",
+      "type": "java.lang.String",
+      "description": "LastFM API key (see: https://www.last.fm/api/accounts)."
     }
   ]
 }

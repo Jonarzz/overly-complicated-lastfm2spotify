@@ -1,0 +1,32 @@
+{
+  "scenarioName": "Single loved tracks page",
+  "request": {
+    "method": "GET",
+    "urlPattern": "/\\?method=user\\.getlovedtracks&user=single_loved_tracks_page_user&api_key=.{32}&page=1&limit=1&format=json"
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "lovedtracks": {
+        "@attr": {
+          "page": "1",
+          "perPage": "1",
+          "total": "1",
+          "totalPages": "1"
+        },
+        "track": [
+          {
+            "name": "Clean My Wounds",
+            "artist": {
+              "url": "https:\/\/www.last.fm\/music\/Corrosion+of+Conformity",
+              "name": "Corrosion of Conformity"
+            }
+          }
+        ]
+      }
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

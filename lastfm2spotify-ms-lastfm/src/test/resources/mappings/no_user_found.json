@@ -1,0 +1,17 @@
+{
+  "scenarioName": "User does not exist",
+  "request": {
+    "method": "GET",
+    "urlPattern": "/\\?method=user\\.getlovedtracks&user=not_existing_user&api_key=.{32}&page=1&limit=1&format=json"
+  },
+  "response": {
+    "status": 404,
+    "jsonBody": {
+      "error": 6,
+      "message": "User not found"
+    },
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

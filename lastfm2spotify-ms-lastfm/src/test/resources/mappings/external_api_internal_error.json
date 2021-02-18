@@ -1,0 +1,13 @@
+{
+  "scenarioName": "External API internal error (500)",
+  "request": {
+    "method": "GET",
+    "urlPattern": "/\\?method=user\\.getlovedtracks&user=external_api_500_user&api_key=.{32}&page=1&limit=1&format=json"
+  },
+  "response": {
+    "status": 500,
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

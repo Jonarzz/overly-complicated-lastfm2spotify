@@ -1,6 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
 
-import org.springframework.beans.factory.annotation.Value;
+import io.github.jonarzz.lastfm2spotify.ms.lastfm.LastFmApiProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -8,16 +8,21 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 class LovedTracksConfiguration {
 
-    @Bean
-    LovedTracksService lovedTracksService(WebClient lastFmApiClient,
-                                          @Value("${lastfm2spotify.api.lastfm.api-key}") String apiKey) {
-        return new LovedTracksService(lastFmApiClient, apiKey);
+    private LastFmApiProperties properties;
+
+    LovedTracksConfiguration(LastFmApiProperties properties) {
+        this.properties = properties;
     }
 
     @Bean
-    WebClient lastFmApiClient(@Value("${lastfm2spotify.api.lastfm.base-url}") String baseUrl) {
+    LovedTracksService lovedTracksService(WebClient lastFmApiClient) {
+        return new LovedTracksService(lastFmApiClient, properties.apiKey(), properties.singlePageLimit());
+    }
+
+    @Bean
+    WebClient lastFmApiClient() {
         return WebClient.builder()
-                        .baseUrl(baseUrl)
+                        .baseUrl(properties.baseUrl())
                         .build();
     }
 

@@ -1,0 +1,102 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "Multiple loved tracks pages with delay - page 1",
+      "request": {
+        "method": "GET",
+        "urlPattern": "/\\?method=user\\.getlovedtracks&user=multiple_loved_tracks_pages_with_delay_user&api_key=.{32}&page=1&limit=1&format=json"
+      },
+      "response": {
+        "fixedDelayMilliseconds": 500,
+        "status": 200,
+        "jsonBody": {
+          "lovedtracks": {
+            "@attr": {
+              "page": "1",
+              "perPage": "1",
+              "total": "3",
+              "totalPages": "3"
+            },
+            "track": [
+              {
+                "name": "Clean My Wounds",
+                "artist": {
+                  "url": "https:\/\/www.last.fm\/music\/Corrosion+of+Conformity",
+                  "name": "Corrosion of Conformity"
+                }
+              }
+            ]
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "scenarioName": "Multiple loved tracks pages with delay - page 2",
+      "request": {
+        "method": "GET",
+        "urlPattern": "/\\?method=user\\.getlovedtracks&user=multiple_loved_tracks_pages_with_delay_user&api_key=.{32}&page=2&limit=1&format=json"
+      },
+      "response": {
+        "fixedDelayMilliseconds": 250,
+        "status": 200,
+        "jsonBody": {
+          "lovedtracks": {
+            "@attr": {
+              "page": "2",
+              "perPage": "1",
+              "total": "3",
+              "totalPages": "3"
+            },
+            "track": [
+              {
+                "name": "Bird On A Chain",
+                "artist": {
+                  "name": "Florence Black",
+                  "url": "https:\/\/www.last.fm\/music\/Florence+Black"
+                }
+              }
+            ]
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "scenarioName": "Multiple loved tracks pages with delay - page 3",
+      "request": {
+        "method": "GET",
+        "urlPattern": "/\\?method=user\\.getlovedtracks&user=multiple_loved_tracks_pages_with_delay_user&api_key=.{32}&page=3&limit=1&format=json"
+      },
+      "response": {
+        "status": 200,
+        "jsonBody": {
+          "lovedtracks": {
+            "@attr": {
+              "page": "3",
+              "perPage": "1",
+              "total": "3",
+              "totalPages": "3"
+            },
+            "track": [
+              {
+                "name": "Scenario",
+                "artist": {
+                  "name": "A Tribe Called Quest",
+                  "url": "https:\/\/www.last.fm\/music\/A+Tribe+Called+Quest"
+                }
+              }
+            ]
+          }
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}

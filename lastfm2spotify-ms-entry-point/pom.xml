@@ -35,6 +35,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
+                    <testMode>WEBTESTCLIENT</testMode>
                     <baseClassForTests>io.github.jonarzz.lastfm2spotify.commons.test.ContractTestBase</baseClassForTests>
                     <basePackageForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint</basePackageForTests>
                 </configuration>

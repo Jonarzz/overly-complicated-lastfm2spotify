@@ -1,7 +1,8 @@
 {
+  "scenarioName": "User has no loved tracks",
   "request": {
     "method": "GET",
-    "urlPattern": "/\\?method=user\\.getlovedtracks&user=no_loved_tracks_user&api_key=.{32}&page=1&format=json"
+    "urlPattern": "/\\?method=user\\.getlovedtracks&user=no_loved_tracks_user&api_key=.{32}&page=1&limit=1&format=json"
   },
   "response": {
     "status": 200,
@@ -9,7 +10,7 @@
       "lovedtracks": {
         "@attr": {
           "page": "1",
-          "perPage": "50",
+          "perPage": "1",
           "total": "0",
           "totalPages": "0"
         },

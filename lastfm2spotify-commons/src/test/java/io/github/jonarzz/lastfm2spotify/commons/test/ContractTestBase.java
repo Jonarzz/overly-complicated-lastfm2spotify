@@ -7,7 +7,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders;
 
-import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.webtestclient.RestAssuredWebTestClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,26 +16,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 public abstract class ContractTestBase {
 
+    // TODO RestAssuredWebTestClient nie dziala z @SpringBootTest
+    // NoSuchBeanDefinitionException: No bean named 'webHandler' available
+
     @Autowired
     private WebApplicationContext applicationContext;
 
     @BeforeEach
     void setup(RestDocumentationContextProvider provider, TestInfo testInfo) {
-        RestAssuredMockMvc.mockMvc(MockMvcBuilders.webAppContextSetup(applicationContext)
-                                                  .apply(documentationConfiguration(provider))
-                                                  .alwaysDo(document(getClass().getSimpleName() + "_" + testInfo.getDisplayName(),
-                                                                     preprocessRequest(prettyPrint(),
-                                                                                       removeHeaders("Host")),
-                                                                     preprocessResponse(prettyPrint(),
-                                                                                        removeHeaders("Vary", "Content-Length"))))
-                                                  .build());
+        RestAssuredWebTestClient.webAppContextSetup(applicationContext,
+                                                    documentationConfiguration(provider),
+                                                    document(getClass().getSimpleName() + "_" + testInfo.getDisplayName(),
+                                                             preprocessRequest(prettyPrint(),
+                                                                               removeHeaders("Host")),
+                                                             preprocessResponse(prettyPrint(),
+                                                                                removeHeaders("Vary", "Content-Length"))));
     }
 
 }

@@ -12,20 +12,26 @@ class LovedTracksService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LovedTracksService.class);
 
-    private static final String GET_LOVED_TRACKS_URI_TEMPLATE = "?method=user.getlovedtracks&user={username}&api_key={apiKey}&page={page}&format=json";
+    private static final String GET_LOVED_TRACKS_URI_TEMPLATE = "?method=user.getlovedtracks"
+                                                                + "&user={username}"
+                                                                + "&api_key={apiKey}"
+                                                                + "&page={page}"
+                                                                + "&limit={limit}"
+                                                                + "&format=json";
 
     private WebClient client;
     private String apiKey;
+    private int singlePageLimit;
 
-    LovedTracksService(WebClient client, String apiKey) {
+    LovedTracksService(WebClient client, String apiKey, int singlePageLimit) {
         this.client = client;
         this.apiKey = apiKey;
+        this.singlePageLimit = singlePageLimit;
     }
 
     List<LovedTrack> getLovedTracks(String username) {
         return getLovedTracksPage(username, 1)
                 .expand(response -> {
-                    logRequestDone(username, response);
                     PagingMetadata pagingMetadata = response.getPagingMetadata();
                     int currentPage = pagingMetadata.getPage();
                     if (currentPage >= pagingMetadata.getTotalPages()) {
@@ -33,8 +39,6 @@ class LovedTracksService {
                     }
                     return getLovedTracksPage(username, currentPage + 1);
                 })
-                // TODO throw runtime exception and catch in controller advice (log there)
-                .doOnError(exception -> LOGGER.error("Exception caught when retrieving loved tracks, message: {}", exception.getMessage()))
                 .map(LovedTracksApiResponse::getLovedTracks)
                 .flatMapSequential(Flux::fromIterable)
                 // TODO handle as flux (tests)
@@ -45,9 +49,13 @@ class LovedTracksService {
     private Mono<LovedTracksApiResponse> getLovedTracksPage(String username, int pageNumber) {
         LOGGER.info("Retrieving loved tracks for user {}, page {}", username, pageNumber);
         return client.get()
-                     .uri(GET_LOVED_TRACKS_URI_TEMPLATE, username, apiKey, pageNumber)
+                     .uri(GET_LOVED_TRACKS_URI_TEMPLATE, username, apiKey, pageNumber, singlePageLimit)
                      .retrieve()
-                     .bodyToMono(LovedTracksApiResponse.class);
+                     // TODO controller advice with exception handling
+                     // .onStatus(HttpStatus::is4xxClientError, response -> Mono.just(new RuntimeException("Not found (TODO)"))) // TODO custom exception
+                     // .onStatus(HttpStatus::is5xxServerError, response -> Mono.just(new RuntimeException("LastFM error (TODO)"))) // TODO custom exception
+                     .bodyToMono(LovedTracksApiResponse.class)
+                     .doOnNext(response -> logRequestDone(username, response));
     }
 
     private static void logRequestDone(String username, LovedTracksApiResponse response) {
