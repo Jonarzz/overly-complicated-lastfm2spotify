@@ -2,12 +2,12 @@ package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("loved")
@@ -21,8 +21,8 @@ public class LovedTracksController {
         this.lovedTracksService = lovedTracksService;
     }
 
-    @GetMapping("{username}")
-    public List<LovedTrack> getLovedTracks(@PathVariable String username) {
+    @GetMapping(value = "{username}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<LovedTrack> getLovedTracks(@PathVariable String username) {
         LOGGER.info("Retrieving loved tracks for user: {}", username);
         return lovedTracksService.getLovedTracks(username);
     }

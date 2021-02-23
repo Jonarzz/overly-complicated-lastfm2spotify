@@ -18,6 +18,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-commons</artifactId>
             <version>1.0.0</version>
@@ -35,8 +39,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <testMode>WEBTESTCLIENT</testMode>
-                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.commons.test.ContractTestBase</baseClassForTests>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.commons.test.MockMvcContractTestBase</baseClassForTests>
                     <basePackageForTests>io.github.jonarzz.lastfm2spotify.ms.entrypoint</basePackageForTests>
                 </configuration>
             </plugin>

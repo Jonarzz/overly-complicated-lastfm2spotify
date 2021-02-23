@@ -6,8 +6,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 class LovedTracksService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LovedTracksService.class);
@@ -29,7 +27,7 @@ class LovedTracksService {
         this.singlePageLimit = singlePageLimit;
     }
 
-    List<LovedTrack> getLovedTracks(String username) {
+    Flux<LovedTrack> getLovedTracks(String username) {
         return getLovedTracksPage(username, 1)
                 .expand(response -> {
                     PagingMetadata pagingMetadata = response.getPagingMetadata();
@@ -40,10 +38,7 @@ class LovedTracksService {
                     return getLovedTracksPage(username, currentPage + 1);
                 })
                 .map(LovedTracksApiResponse::getLovedTracks)
-                .flatMapSequential(Flux::fromIterable)
-                // TODO handle as flux (tests)
-                .collectList()
-                .block();
+                .flatMapSequential(Flux::fromIterable);
     }
 
     private Mono<LovedTracksApiResponse> getLovedTracksPage(String username, int pageNumber) {

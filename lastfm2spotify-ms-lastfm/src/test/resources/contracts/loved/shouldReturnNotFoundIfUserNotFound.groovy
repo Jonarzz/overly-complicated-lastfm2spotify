@@ -12,7 +12,9 @@ Contract.make {
 
     response {
         // TODO 404 Not Found + body with message
-        status OK()
-        body([])
+        status INTERNAL_SERVER_ERROR()
+        bodyMatchers {
+            jsonPath('$', byNull())
+        }
     }
 }

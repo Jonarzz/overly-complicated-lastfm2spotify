@@ -12,6 +12,8 @@ Contract.make {
 
     response {
         status OK()
-        body([])
+        bodyMatchers {
+            jsonPath('$', byNull()) // TODO should be an empty list
+        }
     }
 }

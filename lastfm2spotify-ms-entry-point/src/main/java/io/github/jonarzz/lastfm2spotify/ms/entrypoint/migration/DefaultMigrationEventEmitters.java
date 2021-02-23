@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.Collection;
 
+// TODO replace with Flux, remove spring-boot-starter-web dep. and move spring-boot-starter-webflux to parent
 class DefaultMigrationEventEmitters implements MigrationEventEmitters {
 
     private Multimap<String, SseEmitter> sseEmittersGroupedByLastFmUsername = Multimaps.synchronizedListMultimap(ArrayListMultimap.create());
