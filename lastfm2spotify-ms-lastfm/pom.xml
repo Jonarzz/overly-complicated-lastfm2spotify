@@ -18,10 +18,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-commons</artifactId>
             <version>1.0.0</version>

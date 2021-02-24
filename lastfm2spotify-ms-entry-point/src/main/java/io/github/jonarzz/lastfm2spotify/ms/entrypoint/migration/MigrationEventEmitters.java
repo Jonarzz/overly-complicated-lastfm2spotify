@@ -1,17 +1,13 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import reactor.core.publisher.Flux;
 
-import java.util.Collection;
+interface MigrationEventEmitters<T> {
 
-interface MigrationEventEmitters {
+    Flux<T> provide(String lastFmUsername);
 
-    SseEmitter create(String lastFmUsername);
+    void emit(String lastFmUsername, T event);
 
-    Collection<SseEmitter> get(String lastFmUsername);
-
-    void dispose(String lastFmUsername);
-
-    void dispose(String lastFmUsername, SseEmitter emitter);
+    void disposeEmitter(String lastFmUsername);
 
 }

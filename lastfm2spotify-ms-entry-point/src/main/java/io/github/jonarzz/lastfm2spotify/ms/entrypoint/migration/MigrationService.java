@@ -3,26 +3,34 @@ package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.PlaylistToCreate;
 
 import java.net.URI;
+import java.util.concurrent.TimeUnit;
 
 class MigrationService {
 
-    private MigrationEventService migrationEventService;
+    private MigrationEventEmitters<String> migrationEventEmitters;
 
-    MigrationService(MigrationEventService migrationEventService) {
-        this.migrationEventService = migrationEventService;
+    MigrationService(MigrationEventEmitters<String> migrationEventEmitters) {
+        this.migrationEventEmitters = migrationEventEmitters;
     }
 
     URI migrateLastFmLovedTracksToSpotifyPlaylist(String lastFmUsername, PlaylistToCreate playlist) {
-        migrationEventService.emit(lastFmUsername, "Retrieving LastFM loved tracks...");
-        // TODO call ms-lastfm GET /user/{lastFmUsername}/loved
-        migrationEventService.emit(lastFmUsername, "Creating Spotify playlist...");
-        // TODO call ms-spotify POST /playlist
-        migrationEventService.emit(lastFmUsername, "Adding LastFM loved tracks to Spotify playlist...");
+        try {
+            migrationEventEmitters.emit(lastFmUsername, "Retrieving LastFM loved tracks...");
+            TimeUnit.SECONDS.sleep(5);
+            // TODO call ms-lastfm GET /user/{lastFmUsername}/loved
+            migrationEventEmitters.emit(lastFmUsername, "Creating Spotify playlist...");
+            TimeUnit.SECONDS.sleep(5);
+            // TODO call ms-spotify POST /playlist
+            migrationEventEmitters.emit(lastFmUsername, "Adding LastFM loved tracks to Spotify playlist...");
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         // TODO call ms-spotify GET /track?query="..."
         // TODO call ms-spotify POST /playlist/{id}/{trackId}
         // TODO emit progress events
-        migrationEventService.emit(lastFmUsername, "Done!");
-        migrationEventService.completeEmitting(lastFmUsername);
+        migrationEventEmitters.emit(lastFmUsername, "Done!");
+        migrationEventEmitters.disposeEmitter(lastFmUsername);
         // TODO created playlist URI
         return URI.create("http://www.google.com/search?q=spotify+playlist");
     }
