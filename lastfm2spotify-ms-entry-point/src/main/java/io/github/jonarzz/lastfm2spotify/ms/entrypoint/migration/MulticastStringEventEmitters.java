@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-class MulticastStringEventEmitters implements MigrationEventEmitters<String> {
+class MulticastStringEventEmitters implements MigrationEventEmitters<String> { // TODO add tests
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MulticastStringEventEmitters.class);
 
