@@ -19,6 +19,4 @@ Request
 include::{snippets}/lovedMigrationStatus/http-request.adoc[]
 Response
 include::{snippets}/lovedMigrationStatus/http-response.adoc[]
-https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[Service Sent Events] emitter is returned. It streams events to
-subscribers when
-migration status changes.
+https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events[Server-sent events] are returned.

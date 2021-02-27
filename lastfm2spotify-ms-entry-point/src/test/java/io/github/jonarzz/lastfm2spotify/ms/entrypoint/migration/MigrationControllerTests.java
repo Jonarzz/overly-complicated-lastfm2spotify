@@ -1,11 +1,7 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
+import static io.github.jonarzz.lastfm2spotify.commons.test.RestDocsConfiguration.document;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.removeHeaders;
-import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.PlaylistToCreate;
@@ -69,11 +65,7 @@ class MigrationControllerTests {
               .expectStatus().isOk()
               .expectHeader().contentTypeCompatibleWith(MediaType.TEXT_EVENT_STREAM)
               .expectBodyList(String.class)
-              .consumeWith(document("lovedMigrationStatus",
-                                    preprocessRequest(prettyPrint(),
-                                                      removeHeaders("Host")),
-                                    preprocessResponse(prettyPrint(),
-                                                       removeHeaders("Vary", "Content-Length"))))
+              .consumeWith(document("lovedMigrationStatus"))
               .hasSize(events.length)
               .contains(events);
     }
@@ -96,11 +88,7 @@ class MigrationControllerTests {
               .expectStatus().isOk()
               .expectHeader().contentType(MediaType.APPLICATION_JSON)
               .expectBody()
-              .consumeWith(document("playlistWithOnlyRequiredFields",
-                                    preprocessRequest(prettyPrint(),
-                                                      removeHeaders("Host")),
-                                    preprocessResponse(prettyPrint(),
-                                                       removeHeaders("Vary", "Content-Length"))))
+              .consumeWith(document("playlistWithOnlyRequiredFields"))
               .jsonPath("$", expectedPlaylistUrl);
     }
 
@@ -120,11 +108,7 @@ class MigrationControllerTests {
               .expectStatus().isOk()
               .expectHeader().contentType(MediaType.APPLICATION_JSON)
               .expectBody()
-              .consumeWith(document("playlistWithAllFields",
-                                    preprocessRequest(prettyPrint(),
-                                                      removeHeaders("Host")),
-                                    preprocessResponse(prettyPrint(),
-                                                       removeHeaders("Vary", "Content-Length"))))
+              .consumeWith(document("playlistWithAllFields"))
               .jsonPath("$", expectedPlaylistUrl);
     }
 
