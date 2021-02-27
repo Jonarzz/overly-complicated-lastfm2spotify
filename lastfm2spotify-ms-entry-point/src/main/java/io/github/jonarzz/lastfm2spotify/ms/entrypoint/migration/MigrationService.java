@@ -30,7 +30,7 @@ class MigrationService {
         // TODO call ms-spotify POST /playlist/{id}/{trackId}
         // TODO emit progress events
         migrationEventEmitters.emit(lastFmUsername, "Done!");
-        migrationEventEmitters.disposeEmitter(lastFmUsername);
+        migrationEventEmitters.dispose(lastFmUsername);
         // TODO created playlist URI
         return URI.create("http://www.google.com/search?q=spotify+playlist");
     }

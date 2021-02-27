@@ -8,12 +8,19 @@ import reactor.core.publisher.Sinks;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
-class MulticastStringEventEmitters implements MigrationEventEmitters<String> { // TODO add tests
+class MulticastStringEventEmitters implements MigrationEventEmitters<String> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MulticastStringEventEmitters.class);
 
+    private Supplier<Sinks.Many<String>> sinkSupplier;
+
     private Map<String, Sinks.Many<String>> sinkForUsername = new ConcurrentHashMap<>();
+
+    MulticastStringEventEmitters(Supplier<Sinks.Many<String>> sinkSupplier) {
+        this.sinkSupplier = sinkSupplier;
+    }
 
     @Override
     public Flux<String> provide(String lastFmUsername) {
@@ -31,9 +38,7 @@ class MulticastStringEventEmitters implements MigrationEventEmitters<String> { /
     public void emit(String lastFmUsername, String event) {
         LOGGER.info("Emitting event '{}' for user {}", event, lastFmUsername);
         var sink = sinkForUsername.computeIfAbsent(lastFmUsername,
-                                                   username -> Sinks.many()
-                                                                    .multicast()
-                                                                    .onBackpressureBuffer());
+                                                   username -> sinkSupplier.get());
         var emitResult = sink.tryEmitNext(event);
         if (emitResult.isFailure()) {
             LOGGER.warn("Emitting '{}' event for user {} ended up in failure: {}",
@@ -42,7 +47,7 @@ class MulticastStringEventEmitters implements MigrationEventEmitters<String> { /
     }
 
     @Override
-    public void disposeEmitter(String lastFmUsername) {
+    public void dispose(String lastFmUsername) {
         Optional.ofNullable(sinkForUsername.get(lastFmUsername))
                 .ifPresent(sink -> {
                     LOGGER.info("Disposing emitter for user {}", lastFmUsername);

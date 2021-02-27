@@ -8,6 +8,6 @@ interface MigrationEventEmitters<T> {
 
     void emit(String lastFmUsername, T event);
 
-    void disposeEmitter(String lastFmUsername);
+    void dispose(String lastFmUsername);
 
 }

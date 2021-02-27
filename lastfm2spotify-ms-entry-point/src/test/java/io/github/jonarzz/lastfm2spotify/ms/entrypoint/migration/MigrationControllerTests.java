@@ -28,7 +28,7 @@ import java.net.URI;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-@DisplayName("Migration events tests")
+@DisplayName("Migration controller tests")
 @WebFluxTest(MigrationController.class)
 @TestPropertySource(properties = "lastfm2spotify.web.accepted-origin-host=localhost")
 @AutoConfigureRestDocs
@@ -117,7 +117,7 @@ class MigrationControllerTests {
         Stream.of(events)
               .forEach(event -> {
                   try {
-                      TimeUnit.MILLISECONDS.sleep(100);
+                      TimeUnit.MILLISECONDS.sleep(50);
                   } catch (InterruptedException e) {
                       Thread.currentThread().interrupt();
                   }
