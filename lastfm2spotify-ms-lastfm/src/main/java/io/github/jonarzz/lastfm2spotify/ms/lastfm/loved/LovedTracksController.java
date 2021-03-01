@@ -21,7 +21,7 @@ public class LovedTracksController {
         this.lovedTracksService = lovedTracksService;
     }
 
-    @GetMapping(value = "{username}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "{username}", produces = MediaType.APPLICATION_NDJSON_VALUE)
     public Flux<LovedTrack> getLovedTracks(@PathVariable String username) {
         LOGGER.info("Retrieving loved tracks for user: {}", username);
         return lovedTracksService.getLovedTracks(username);
