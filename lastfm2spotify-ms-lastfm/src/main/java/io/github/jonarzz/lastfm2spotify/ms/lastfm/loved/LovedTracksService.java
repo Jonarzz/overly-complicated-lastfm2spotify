@@ -29,7 +29,7 @@ class LovedTracksService {
 
     Flux<LovedTrack> getLovedTracks(String username) {
         return getLovedTracksPage(username, 1)
-                .expand(response -> {
+                .expand(response -> { // TODO strategia do wyboru sposobu pobierania (rosnąco, malejąco, "losowo" - równolegle)
                     PagingMetadata pagingMetadata = response.getPagingMetadata();
                     int currentPage = pagingMetadata.getPage();
                     if (currentPage >= pagingMetadata.getTotalPages()) {
@@ -37,11 +37,12 @@ class LovedTracksService {
                     }
                     return getLovedTracksPage(username, currentPage + 1);
                 })
-                .map(LovedTracksApiResponse::getLovedTracks)
-                .flatMapSequential(Flux::fromIterable);
+                .map(LastFmLovedTracksResponse::getLovedTracks)
+                .flatMapSequential(Flux::fromIterable)
+                .map(LastFmLovedTrack::toInternalModel);
     }
 
-    private Mono<LovedTracksApiResponse> getLovedTracksPage(String username, int pageNumber) {
+    private Mono<LastFmLovedTracksResponse> getLovedTracksPage(String username, int pageNumber) {
         LOGGER.info("Retrieving loved tracks for user {}, page {}", username, pageNumber);
         return client.get()
                      .uri(GET_LOVED_TRACKS_URI_TEMPLATE, username, apiKey, pageNumber, singlePageLimit)
@@ -49,11 +50,11 @@ class LovedTracksService {
                      // TODO controller advice with exception handling
                      // .onStatus(HttpStatus::is4xxClientError, response -> Mono.just(new RuntimeException("Not found (TODO)"))) // TODO custom exception
                      // .onStatus(HttpStatus::is5xxServerError, response -> Mono.just(new RuntimeException("LastFM error (TODO)"))) // TODO custom exception
-                     .bodyToMono(LovedTracksApiResponse.class)
+                     .bodyToMono(LastFmLovedTracksResponse.class)
                      .doOnNext(response -> logRequestDone(username, response));
     }
 
-    private static void logRequestDone(String username, LovedTracksApiResponse response) {
+    private static void logRequestDone(String username, LastFmLovedTracksResponse response) {
         PagingMetadata pagingMetadata = response.getPagingMetadata();
         int currentPage = pagingMetadata.getPage();
         int totalTracks = pagingMetadata.getTotal();

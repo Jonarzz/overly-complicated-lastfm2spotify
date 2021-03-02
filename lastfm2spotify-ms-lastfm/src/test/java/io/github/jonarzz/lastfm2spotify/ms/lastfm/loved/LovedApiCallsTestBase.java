@@ -22,6 +22,7 @@ import reactor.test.StepVerifier;
         "lastfm2spotify.api.lastfm.single-page-limit=1"
 
 })
+@DisplayName("Loved tracks API calls")
 public abstract class LovedApiCallsTestBase extends WebTestClientContractTestBase {
 
     @Autowired

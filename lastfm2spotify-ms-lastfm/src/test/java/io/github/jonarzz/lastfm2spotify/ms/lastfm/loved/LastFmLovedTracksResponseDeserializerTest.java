@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Loved tracks API response deserializer tests")
-class LovedTracksApiResponseDeserializerTest {
+class LastFmLovedTracksResponseDeserializerTest {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -41,12 +41,12 @@ class LovedTracksApiResponseDeserializerTest {
                 }
                 """.formatted(page, perPage, total, totalPages, trackTitle, trackArtist);
 
-        LovedTracksApiResponse result = objectMapper.readValue(responseJson, LovedTracksApiResponse.class);
+        LastFmLovedTracksResponse result = objectMapper.readValue(responseJson, LastFmLovedTracksResponse.class);
 
         assertThat(result)
                 .as("Deserialized JSON: " + responseJson)
-                .isEqualTo(new LovedTracksApiResponse(new PagingMetadata(page, perPage, total, totalPages),
-                                                      singletonList(new LovedTrack(trackArtist, trackTitle))));
+                .isEqualTo(new LastFmLovedTracksResponse(new PagingMetadata(page, perPage, total, totalPages),
+                                                         singletonList(new LastFmLovedTrack(trackArtist, trackTitle))));
     }
 
 }

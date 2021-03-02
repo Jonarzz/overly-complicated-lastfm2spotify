@@ -10,16 +10,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
-class LovedTracksApiResponseDeserializer extends JsonDeserializer<LovedTracksApiResponse> {
+class LovedTracksApiResponseDeserializer extends JsonDeserializer<LastFmLovedTracksResponse> {
 
     @Override
-    public LovedTracksApiResponse deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+    public LastFmLovedTracksResponse deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         ObjectMapper objectMapper = (ObjectMapper) parser.getCodec();
         TreeNode nestedRoot = objectMapper.readTree(parser)
                                           .get("lovedtracks");
         PagingMetadata pagingMetadata = objectMapper.treeToValue(nestedRoot.get("@attr"), PagingMetadata.class);
-        List<LovedTrack> lovedTracks = objectMapper.readValue(nestedRoot.get("track").toString(), new TypeReference<>() {});
-        return new LovedTracksApiResponse(pagingMetadata, lovedTracks);
+        List<LastFmLovedTrack> lovedTracks = objectMapper.readValue(nestedRoot.get("track").toString(), new TypeReference<>() {});
+        return new LastFmLovedTracksResponse(pagingMetadata, lovedTracks);
     }
 
 }

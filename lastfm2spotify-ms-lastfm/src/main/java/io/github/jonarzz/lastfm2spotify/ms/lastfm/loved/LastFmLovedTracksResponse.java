@@ -14,9 +14,9 @@ import java.util.List;
 @Getter(AccessLevel.PACKAGE)
 @EqualsAndHashCode
 @ToString
-class LovedTracksApiResponse {
+class LastFmLovedTracksResponse {
 
     private PagingMetadata pagingMetadata;
-    private List<LovedTrack> lovedTracks;
+    private List<LastFmLovedTrack> lovedTracks;
 
 }
