@@ -13,7 +13,7 @@ class LovedTrackDeserializer extends JsonDeserializer<LovedTrack> {
     @Override
     public LovedTrack deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         JsonNode root = parser.getCodec().readTree(parser);
-        return tryParseFromInternalModel(root)
+        return tryParseFromInternalModel(root) // TODO split to 2 DTOs and deserializers (from LastFM + internal)
                 .orElseGet(() -> parseFromLastFmApi(root));
     }
 

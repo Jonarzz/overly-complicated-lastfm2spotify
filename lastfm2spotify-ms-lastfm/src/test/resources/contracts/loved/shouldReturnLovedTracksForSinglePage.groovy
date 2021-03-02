@@ -12,6 +12,9 @@ Contract.make {
 
     response {
         status OK()
+        headers {
+            contentType('application/x-ndjson')
+        }
         body([
                 artist: 'Corrosion of Conformity',
                 title : 'Clean My Wounds'
