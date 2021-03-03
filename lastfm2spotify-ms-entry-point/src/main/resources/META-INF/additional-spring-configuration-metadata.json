@@ -4,6 +4,16 @@
       "name": "lastfm2spotify.web.accepted-origin-host",
       "type": "java.lang.String",
       "description": "Host for which requests may be handled by the application (Cross-Origin Resource Sharing)."
+    },
+    {
+      "name": "lastfm2spotify.integration.ms.lastfm.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL of LastFM microservice application."
+    },
+    {
+      "name": "lastfm2spotify.integration.ms.spotify.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL of Spotify microservice application."
     }
   ]
 }

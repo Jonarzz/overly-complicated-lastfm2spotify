@@ -1,5 +1,6 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
+import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.reactive.function.client.WebClient;

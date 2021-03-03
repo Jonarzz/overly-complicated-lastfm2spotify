@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;

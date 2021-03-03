@@ -1,5 +1,6 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
+import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-@RequestMapping("loved")
+@RequestMapping("tracks/loved")
 public class LovedTracksController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LovedTracksController.class);

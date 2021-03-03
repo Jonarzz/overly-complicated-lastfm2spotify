@@ -20,6 +20,11 @@
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-commons</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jonarzz</groupId>
+            <artifactId>lastfm2spotify-commons</artifactId>
             <version>1.0.0</version>
             <type>test-jar</type>
             <scope>test</scope>

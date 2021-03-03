@@ -7,7 +7,7 @@ Contract.make {
 
     request {
         method 'GET'
-        url '/loved/not_existing_user'
+        url '/tracks/loved/not_existing_user'
     }
 
     response {

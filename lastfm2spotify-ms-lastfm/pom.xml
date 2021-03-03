@@ -20,7 +20,12 @@
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-commons</artifactId>
-            <version>1.0.0</version>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jonarzz</groupId>
+            <artifactId>lastfm2spotify-commons</artifactId>
+            <version>${parent.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
@@ -36,7 +41,7 @@
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
                     <testMode>WEBTESTCLIENT</testMode>
-                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.lastfm.loved.LovedApiCallsTestBase</baseClassForTests>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved.LovedApiCallsTestBase</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

@@ -1,12 +1,11 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.commons.dto;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 @ToString

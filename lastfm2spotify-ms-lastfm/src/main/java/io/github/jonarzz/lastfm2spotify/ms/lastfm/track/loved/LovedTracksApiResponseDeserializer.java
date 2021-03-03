@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;

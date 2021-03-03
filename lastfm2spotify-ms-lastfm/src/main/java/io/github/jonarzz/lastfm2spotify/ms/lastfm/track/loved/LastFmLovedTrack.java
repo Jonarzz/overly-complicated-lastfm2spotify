@@ -1,6 +1,7 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

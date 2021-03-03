@@ -7,7 +7,7 @@ Contract.make {
 
     request {
         method 'GET'
-        url '/loved/single_loved_tracks_page_user'
+        url '/tracks/loved/single_loved_tracks_page_user'
     }
 
     response {

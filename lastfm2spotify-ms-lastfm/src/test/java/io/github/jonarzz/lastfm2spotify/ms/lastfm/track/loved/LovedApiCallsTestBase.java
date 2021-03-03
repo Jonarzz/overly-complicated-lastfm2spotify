@@ -1,7 +1,8 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import static java.time.Duration.ofSeconds;
 
+import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import io.github.jonarzz.lastfm2spotify.commons.test.WebTestClientContractTestBase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ public abstract class LovedApiCallsTestBase extends WebTestClientContractTestBas
     @DisplayName("Loved tracks are fetched across multiple pages")
     void lovedTracksAreFetchedAcrossMultiplePages() {
         Flux<LovedTrack> response = client.get()
-                                          .uri("loved/multiple_loved_tracks_pages_user")
+                                          .uri("tracks/loved/multiple_loved_tracks_pages_user")
                                           .exchange()
                                           .expectStatus().isOk()
                                           .expectHeader().contentType(MediaType.APPLICATION_NDJSON)
@@ -53,7 +54,7 @@ public abstract class LovedApiCallsTestBase extends WebTestClientContractTestBas
                                           .responseTimeout(ofSeconds(1))
                                           .build()
                                           .get()
-                                          .uri("loved/multiple_loved_tracks_pages_with_delay_user")
+                                          .uri("tracks/loved/multiple_loved_tracks_pages_with_delay_user")
                                           .exchange()
                                           .expectStatus().isOk()
                                           .expectHeader().contentType(MediaType.APPLICATION_NDJSON)

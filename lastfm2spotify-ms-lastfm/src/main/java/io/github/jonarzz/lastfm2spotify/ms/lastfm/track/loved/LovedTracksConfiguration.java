@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.loved;
+package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import io.github.jonarzz.lastfm2spotify.ms.lastfm.LastFmApiProperties;
 import org.springframework.context.annotation.Bean;
