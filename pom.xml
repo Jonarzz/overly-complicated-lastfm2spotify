@@ -5,9 +5,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>lastfm2spotify-commons</module>
-        <module>lastfm2spotify-ms-entry-point</module>
         <module>lastfm2spotify-ms-lastfm</module>
         <module>lastfm2spotify-ms-spotify</module>
+        <module>lastfm2spotify-ms-entry-point</module>
         <module>lastfm2spotify-docs</module>
     </modules>
 
