@@ -11,10 +11,9 @@ Contract.make {
     }
 
     response {
-        // TODO 404 Not Found + body with message
-        status INTERNAL_SERVER_ERROR()
-        bodyMatchers {
-            jsonPath('$', byNull())
-        }
+        status NOT_FOUND()
+        body([
+                errorMessage: "User with name not_existing_user not found"
+        ])
     }
 }

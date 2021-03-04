@@ -1,8 +1,11 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
+import io.github.jonarzz.lastfm2spotify.ms.lastfm.error.ExternalApiUnavailableException;
+import io.github.jonarzz.lastfm2spotify.ms.lastfm.error.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -48,9 +51,10 @@ class LovedTracksService {
         return client.get()
                      .uri(GET_LOVED_TRACKS_URI_TEMPLATE, username, apiKey, pageNumber, singlePageLimit)
                      .retrieve()
-                     // TODO controller advice with exception handling
-                     // .onStatus(HttpStatus::is4xxClientError, response -> Mono.just(new RuntimeException("Not found (TODO)"))) // TODO custom exception
-                     // .onStatus(HttpStatus::is5xxServerError, response -> Mono.just(new RuntimeException("LastFM error (TODO)"))) // TODO custom exception
+                     .onStatus(HttpStatus::is4xxClientError,
+                               response -> Mono.just(new ResourceNotFoundException("User with name " + username + " not found")))
+                     .onStatus(HttpStatus::is5xxServerError,
+                               response -> Mono.just(new ExternalApiUnavailableException("LastFM API is unavailable at the moment")))
                      .bodyToMono(LastFmLovedTracksResponse.class)
                      .doOnNext(response -> logRequestDone(username, response));
     }

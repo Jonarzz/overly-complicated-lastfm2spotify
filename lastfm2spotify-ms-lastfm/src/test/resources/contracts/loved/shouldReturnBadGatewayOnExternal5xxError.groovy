@@ -11,10 +11,9 @@ Contract.make {
     }
 
     response {
-        // TODO 502 Bad Gateway + body with message
-        status INTERNAL_SERVER_ERROR()
-        bodyMatchers {
-            jsonPath('$', byNull())
-        }
+        status BAD_GATEWAY()
+        body([
+                errorMessage: "LastFM API is unavailable at the moment"
+        ])
     }
 }
