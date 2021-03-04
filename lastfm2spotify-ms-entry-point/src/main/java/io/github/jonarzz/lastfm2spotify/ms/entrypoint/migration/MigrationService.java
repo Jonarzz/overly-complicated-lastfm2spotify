@@ -24,7 +24,7 @@ class MigrationService {
                                 .doOnComplete(() -> migrationEventEmitters.emit(lastFmUsername, "Retrieved " + lovedTracks.size() + " loved tracks total"))
                                 .subscribe(lovedTracks::add);
         // TODO handle above results properly (and test error handling)
-        migrationEventEmitters.emit(lastFmUsername, "Creating Spotify playlist...");
+        migrationEventEmitters.emit(lastFmUsername, "Creating Spotify playlist with name " + playlist.getName());
         // TODO call ms-spotify POST /playlist
         migrationEventEmitters.emit(lastFmUsername, "Adding LastFM loved tracks to Spotify playlist...");
         // TODO call ms-spotify GET /track?query="..."

@@ -24,7 +24,7 @@ import reactor.test.StepVerifier;
 
 })
 @DisplayName("Loved tracks API calls")
-public abstract class LovedApiCallsTestBase extends WebTestClientContractTestBase {
+abstract class LovedApiCallsTestBase extends WebTestClientContractTestBase {
 
     @Autowired
     private WebTestClient client;
