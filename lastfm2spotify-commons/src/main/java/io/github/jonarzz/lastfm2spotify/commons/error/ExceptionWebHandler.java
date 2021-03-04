@@ -1,7 +1,5 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.error;
+package io.github.jonarzz.lastfm2spotify.commons.error;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,9 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.Map;
 
 @ControllerAdvice
-class ExceptionWebHandler {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionWebHandler.class);
+public class ExceptionWebHandler {
 
     private static final String ERROR_MESSAGE_KEY = "errorMessage";
 
@@ -32,8 +28,6 @@ class ExceptionWebHandler {
     }
 
     private Map<String, String> handleException(Exception exception) {
-        LOGGER.error("{} exception occurred, reason: {}",
-                     exception.getClass().getSimpleName(), exception.getMessage());
         return Map.of(ERROR_MESSAGE_KEY, exception.getMessage());
     }
 

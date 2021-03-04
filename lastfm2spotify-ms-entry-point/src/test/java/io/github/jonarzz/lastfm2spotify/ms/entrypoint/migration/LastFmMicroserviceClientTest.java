@@ -1,6 +1,10 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
+import io.github.jonarzz.lastfm2spotify.commons.error.ExternalApiUnavailableException;
+import io.github.jonarzz.lastfm2spotify.commons.error.ResourceNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,17 +38,25 @@ class LastFmMicroserviceClientTest {
         @Test
         @DisplayName("User does not exist")
         void userDoesNotExist() {
-            Flux<LovedTrack> result = testedClient.getLovedTracks("not_existing_user");
+            String lastFmUsername = "not_existing_user";
 
-            // TODO add after adding error handling in LastFM MS
+            Flux<LovedTrack> result = testedClient.getLovedTracks(lastFmUsername);
+
+            StepVerifier.create(result)
+                        .verifyErrorSatisfies(e -> assertThat(e)
+                                .isInstanceOf(ResourceNotFoundException.class)
+                                .hasMessage("User with name " + lastFmUsername + " not found"));
         }
 
         @Test
-        @DisplayName("Gateway unavailable")
-        void gatewayUnavailable() {
+        @DisplayName("LastFM API unavailable unavailable")
+        void lastFmApiUnavailable() {
             Flux<LovedTrack> result = testedClient.getLovedTracks("external_api_500_user");
 
-            // TODO add after adding error handling in LastFM MS
+            StepVerifier.create(result)
+                        .verifyErrorSatisfies(e -> assertThat(e)
+                                .isInstanceOf(ExternalApiUnavailableException.class)
+                                .hasMessage("LastFM API is not unavailable at the moment"));
         }
 
         @Test

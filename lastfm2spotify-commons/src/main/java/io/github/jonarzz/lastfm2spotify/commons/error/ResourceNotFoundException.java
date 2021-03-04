@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.lastfm.error;
+package io.github.jonarzz.lastfm2spotify.commons.error;
 
 public class ResourceNotFoundException extends RuntimeException {
 

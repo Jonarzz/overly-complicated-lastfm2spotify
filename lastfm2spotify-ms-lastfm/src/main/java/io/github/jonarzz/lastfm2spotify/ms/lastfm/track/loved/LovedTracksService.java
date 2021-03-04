@@ -1,11 +1,12 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
-import io.github.jonarzz.lastfm2spotify.ms.lastfm.error.ExternalApiUnavailableException;
-import io.github.jonarzz.lastfm2spotify.ms.lastfm.error.ResourceNotFoundException;
+import io.github.jonarzz.lastfm2spotify.commons.error.ExternalApiUnavailableException;
+import io.github.jonarzz.lastfm2spotify.commons.error.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -51,12 +52,18 @@ class LovedTracksService {
         return client.get()
                      .uri(GET_LOVED_TRACKS_URI_TEMPLATE, username, apiKey, pageNumber, singlePageLimit)
                      .retrieve()
-                     .onStatus(HttpStatus::is4xxClientError,
-                               response -> Mono.just(new ResourceNotFoundException("User with name " + username + " not found")))
+                     .onStatus(HttpStatus.NOT_FOUND::equals,
+                               response -> handleApiError(response, new ResourceNotFoundException("User with name " + username + " not found")))
                      .onStatus(HttpStatus::is5xxServerError,
-                               response -> Mono.just(new ExternalApiUnavailableException("LastFM API is unavailable at the moment")))
+                               response -> handleApiError(response, new ExternalApiUnavailableException("LastFM API is unavailable at the moment")))
                      .bodyToMono(LastFmLovedTracksResponse.class)
                      .doOnNext(response -> logRequestDone(username, response));
+    }
+
+    private static <T extends Exception> Mono<T> handleApiError(ClientResponse response, T exceptionToThrow) {
+        return response.bodyToMono(String.class)
+                       .doOnNext(responseBody -> LOGGER.error("LastFM API response: {}, {}", response.statusCode(), responseBody))
+                       .then(Mono.just(exceptionToThrow));
     }
 
     private static void logRequestDone(String username, LastFmLovedTracksResponse response) {
