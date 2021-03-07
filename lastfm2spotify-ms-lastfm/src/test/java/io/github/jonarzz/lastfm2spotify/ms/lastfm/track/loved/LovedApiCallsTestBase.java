@@ -20,7 +20,8 @@ import reactor.test.StepVerifier;
 @TestPropertySource(properties = {
         "lastfm2spotify.api.lastfm.base-url=http://localhost:${wiremock.server.port}",
         "lastfm2spotify.api.lastfm.api-key=a1b2c3d4e5f6g7h8i9j0xyzqwerty123",
-        "lastfm2spotify.api.lastfm.single-page-limit=1"
+        "lastfm2spotify.api.lastfm.single-page-limit=1",
+        "logging.level.io.github.jonarzz=debug"
 
 })
 @DisplayName("Loved tracks API calls")

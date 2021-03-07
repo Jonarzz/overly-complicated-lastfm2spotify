@@ -1,28 +1,39 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import static java.util.Collections.singletonList;
-import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.jonarzz.lastfm2spotify.commons.test.BaseDeserializerTest;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 @DisplayName("Loved tracks API response deserializer tests")
-class LastFmLovedTracksResponseDeserializerTest {
+class LastFmLovedTracksResponseDeserializerTest extends BaseDeserializerTest<LastFmLovedTracksResponse> {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private static final int PER_PAGE = 50;
+    private static final int TOTAL = 73;
+    private static final int TOTAL_PAGES = 2;
 
-    @Test
-    @DisplayName("Deserialize response")
-    void deserializeResponse() throws JsonProcessingException {
-        int page = 1;
-        int perPage = 50;
-        int total = 73;
-        int totalPages = 2;
-        String trackTitle = "Pink Floyd";
-        String trackArtist = "Money";
-        String responseJson = """
+    protected LastFmLovedTracksResponseDeserializerTest() {
+        super(LastFmLovedTracksResponse.class);
+    }
+
+    @Override
+    protected Map<String, LastFmLovedTracksResponse> jsonToExpectedObject() {
+        return Map.ofEntries(
+                jsonToExpectedObject(1, "Pink Floyd", "Money"),
+                jsonToExpectedObject(2, "Led Zeppelin", "Immigrant song")
+        );
+    }
+
+    private static Map.Entry<String, LastFmLovedTracksResponse> jsonToExpectedObject(int page, String artist, String title) {
+        return Map.entry(createJson(page, artist, title),
+                         new LastFmLovedTracksResponse(new PagingMetadata(page, PER_PAGE, TOTAL, TOTAL_PAGES),
+                                                       singletonList(new LastFmLovedTrack(artist, title))));
+    }
+
+    private static String createJson(int page, String trackArtist, String trackTitle) {
+        return """
                 {
                   "lovedtracks": {
                     "@attr": {
@@ -39,14 +50,7 @@ class LastFmLovedTracksResponseDeserializerTest {
                     }]
                   }
                 }
-                """.formatted(page, perPage, total, totalPages, trackTitle, trackArtist);
-
-        LastFmLovedTracksResponse result = objectMapper.readValue(responseJson, LastFmLovedTracksResponse.class);
-
-        assertThat(result)
-                .as("Deserialized JSON: " + responseJson)
-                .isEqualTo(new LastFmLovedTracksResponse(new PagingMetadata(page, perPage, total, totalPages),
-                                                         singletonList(new LastFmLovedTrack(trackArtist, trackTitle))));
+                """.formatted(page, PER_PAGE, TOTAL, TOTAL_PAGES, trackTitle, trackArtist);
     }
 
 }

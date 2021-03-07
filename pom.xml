@@ -23,6 +23,7 @@
     <version>1.0.0</version>
     <name>overly-complicated-lastfm2spotify</name>
     <description>Overly complicated LastFM to Spotify</description>
+    <url>https://github.com/Jonarzz/${project.artifactId}</url>
 
     <properties>
         <java.version>15</java.version>
@@ -30,7 +31,7 @@
         <sonar.projectKey>Jonarzz_${project.artifactId}</sonar.projectKey>
         <sonar.organization>jonarzz</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>../target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <!-- dependency versions -->
         <spring-cloud.version>2020.0.2-SNAPSHOT</spring-cloud.version>
         <spring-cloud.contract.version>3.0.2-SNAPSHOT</spring-cloud.contract.version>

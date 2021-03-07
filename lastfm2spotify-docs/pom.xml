@@ -19,18 +19,23 @@
     <dependencies>
         <dependency>
             <groupId>io.github.jonarzz</groupId>
+            <artifactId>lastfm2spotify-commons</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-ms-entry-point</artifactId>
-            <version>1.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-ms-lastfm</artifactId>
-            <version>1.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-ms-spotify</artifactId>
-            <version>1.0.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 
@@ -47,6 +52,26 @@
                         </goals>
                         <configuration>
                             <skip>true</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <configuration>
+                            <dataFileIncludes>
+                                <dataFileInclude>**/jacoco.exec</dataFileInclude>
+                            </dataFileIncludes>
+                            <outputDirectory>${project.parent.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

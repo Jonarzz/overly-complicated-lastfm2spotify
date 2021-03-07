@@ -1,12 +1,17 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.google.common.base.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 public class PlaylistToCreate {
 
     private static final int MIN_NAME_LENGTH = 1;
@@ -35,44 +40,5 @@ public class PlaylistToCreate {
         return new PlaylistToCreate(name, privacyConfig.isPubliclyAvailable(), songsOrdering);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public boolean isPubliclyAvailable() {
-        return publiclyAvailable;
-    }
-
-    public SongsOrdering getSongsOrdering() {
-        return songsOrdering;
-    }
-
-    @Override
-    public String toString() {
-        return "PlaylistToCreate{" +
-               "name='" + name + '\'' +
-               ", publiclyAvailable=" + publiclyAvailable +
-               ", songsOrdering=" + songsOrdering +
-               '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof PlaylistToCreate)) {
-            return false;
-        }
-        PlaylistToCreate that = (PlaylistToCreate) o;
-        return publiclyAvailable == that.publiclyAvailable
-               && Objects.equal(name, that.name)
-               && songsOrdering == that.songsOrdering;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name, publiclyAvailable, songsOrdering);
-    }
-
 }
+
