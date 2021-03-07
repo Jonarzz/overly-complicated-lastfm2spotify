@@ -9,20 +9,20 @@ import java.util.Collection;
 
 class MigrationService {
 
-    private LastFmMicroserviceClient lastFmMicroserviceClient;
+    private LastFmServiceClient lastFmServiceClient;
     private MigrationEventEmitters<String> migrationEventEmitters;
 
-    MigrationService(LastFmMicroserviceClient lastFmMicroserviceClient, MigrationEventEmitters<String> migrationEventEmitters) {
-        this.lastFmMicroserviceClient = lastFmMicroserviceClient;
+    MigrationService(LastFmServiceClient lastFmServiceClient, MigrationEventEmitters<String> migrationEventEmitters) {
+        this.lastFmServiceClient = lastFmServiceClient;
         this.migrationEventEmitters = migrationEventEmitters;
     }
 
     URI migrateLastFmLovedTracksToSpotifyPlaylist(String lastFmUsername, PlaylistToCreate playlist) {
         migrationEventEmitters.emit(lastFmUsername, "Retrieving LastFM loved tracks...");
         Collection<LovedTrack> lovedTracks = new ArrayList<>();
-        lastFmMicroserviceClient.getLovedTracks(lastFmUsername)
-                                .doOnComplete(() -> migrationEventEmitters.emit(lastFmUsername, "Retrieved " + lovedTracks.size() + " loved tracks total"))
-                                .subscribe(lovedTracks::add);
+        lastFmServiceClient.getLovedTracks(lastFmUsername)
+                           .doOnComplete(() -> migrationEventEmitters.emit(lastFmUsername, "Retrieved " + lovedTracks.size() + " loved tracks total"))
+                           .subscribe(lovedTracks::add);
         // TODO handle above results properly (and test error handling)
         migrationEventEmitters.emit(lastFmUsername, "Creating Spotify playlist with name " + playlist.getName());
         // TODO call ms-spotify POST /playlist

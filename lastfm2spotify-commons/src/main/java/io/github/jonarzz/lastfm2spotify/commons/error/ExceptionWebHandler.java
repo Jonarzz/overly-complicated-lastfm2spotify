@@ -1,34 +1,33 @@
 package io.github.jonarzz.lastfm2spotify.commons.error;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.Map;
-
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionWebHandler {
-
-    private static final String ERROR_MESSAGE_KEY = "errorMessage";
 
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    Map<String, String> handleResourceNotFoundException(ResourceNotFoundException exception) {
-        return handleException(exception);
+    ErrorResponse handleResourceNotFoundException(ResourceNotFoundException exception) {
+        return createResponse(exception);
     }
 
     @ExceptionHandler(ExternalApiUnavailableException.class)
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
-    @ResponseBody
-    Map<String, String> handleExternalApiUnavailableException(ExternalApiUnavailableException exception) {
-        return handleException(exception);
+    ErrorResponse handleExternalApiUnavailableException(ExternalApiUnavailableException exception) {
+        return createResponse(exception);
     }
 
-    private Map<String, String> handleException(Exception exception) {
-        return Map.of(ERROR_MESSAGE_KEY, exception.getMessage());
+    @ExceptionHandler(OtherInternalApiException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    ErrorResponse handleOtherInternalApiException(OtherInternalApiException exception) {
+        return createResponse(exception);
+    }
+
+    private ErrorResponse createResponse(Exception exception) {
+        return new ErrorResponse(exception.getMessage());
     }
 
 }

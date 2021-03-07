@@ -1,14 +1,14 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
-import io.github.jonarzz.lastfm2spotify.commons.test.BaseDeserializerTest;
+import io.github.jonarzz.lastfm2spotify.commons.test.BaseSerializationTest;
 import org.junit.jupiter.api.DisplayName;
 
 import java.util.Map;
 
-@DisplayName("Loved track deserializer tests")
-class LastFmLovedTrackDeserializerTest extends BaseDeserializerTest<LastFmLovedTrack> {
+@DisplayName("LastFM loved track serialization tests")
+class LastFmLovedTrackSerializationTest extends BaseSerializationTest<LastFmLovedTrack> {
 
-    protected LastFmLovedTrackDeserializerTest() {
+    protected LastFmLovedTrackSerializationTest() {
         super(LastFmLovedTrack.class);
     }
 
@@ -18,6 +18,11 @@ class LastFmLovedTrackDeserializerTest extends BaseDeserializerTest<LastFmLovedT
                 jsonToExpectedObject("Metallica", "Master of Puppets"),
                 jsonToExpectedObject("Mac Miller", "Diablo")
         );
+    }
+
+    @Override
+    protected boolean shouldOnlyTestDeserialization() {
+        return true;
     }
 
     private static Map.Entry<String, LastFmLovedTrack> jsonToExpectedObject(String artist, String title) {

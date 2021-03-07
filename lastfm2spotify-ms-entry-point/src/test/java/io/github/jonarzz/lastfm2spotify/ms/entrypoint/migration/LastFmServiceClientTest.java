@@ -2,8 +2,10 @@ package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import io.github.jonarzz.lastfm2spotify.commons.error.ExternalApiUnavailableException;
+import io.github.jonarzz.lastfm2spotify.commons.error.OtherInternalApiException;
 import io.github.jonarzz.lastfm2spotify.commons.error.ResourceNotFoundException;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.MicroserviceIntegrationProperties;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,7 @@ import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 @DisplayName("LastFM microservice client tests")
-class LastFmMicroserviceClientTest {
+class LastFmServiceClientTest {
 
     int stubPort = 8100;
 
@@ -40,7 +42,7 @@ class LastFmMicroserviceClientTest {
 
     private WebClient lastFmMsClient = configuration.lastFmMsClient(integrationProperties);
 
-    private LastFmMicroserviceClient testedClient = new LastFmMicroserviceClient(lastFmMsClient);
+    private LastFmServiceClient testedClient = new LastFmServiceClient(lastFmMsClient, new ObjectMapper());
 
     @BeforeEach
     void setUp() {
@@ -62,7 +64,7 @@ class LastFmMicroserviceClientTest {
             StepVerifier.create(result)
                         .verifyErrorSatisfies(e -> assertThat(e)
                                 .isInstanceOf(ResourceNotFoundException.class)
-                                .hasMessage("User with name " + lastFmUsername + " not found"));
+                                .hasMessage("User " + lastFmUsername + " not found"));
         }
 
         @Test
@@ -79,22 +81,14 @@ class LastFmMicroserviceClientTest {
         @Test
         @DisplayName("Get no tracks")
         void getNoTracks() {
-            Flux<LovedTrack> result = testedClient.getLovedTracks("no_loved_tracks_user");
+            String lastFmUsername = "no_loved_tracks_user";
+
+            Flux<LovedTrack> result = testedClient.getLovedTracks(lastFmUsername);
 
             StepVerifier.create(result)
-                        .verifyComplete();
-        }
-
-        @Test
-        @DisplayName("Get no tracks - URL in properties with trailing slash")
-        void getNoTracks_urlInPropertiesWithTrailingSlash() {
-            integrationProperties.getLastFm()
-                                 .setBaseUrl(baseUrlWithoutTrailingSlash + "/");
-
-            Flux<LovedTrack> result = testedClient.getLovedTracks("no_loved_tracks_user");
-
-            StepVerifier.create(result)
-                        .verifyComplete();
+                        .verifyErrorSatisfies(e -> assertThat(e)
+                                .isInstanceOf(UserHasNoLovedTracksException.class)
+                                .hasMessage("User " + lastFmUsername + " has no loved tracks"));
         }
 
         @Test
@@ -105,6 +99,18 @@ class LastFmMicroserviceClientTest {
             StepVerifier.create(result)
                         .expectNext(new LovedTrack("Corrosion of Conformity", "Clean My Wounds"))
                         .verifyComplete();
+        }
+
+        @Test
+        @DisplayName("Other errors handling - invalid remote URL")
+        void otherErrorsHandling_invalidRemoteUrl() {
+            Flux<LovedTrack> result = testedClient.getLovedTracks("\t");
+
+            StepVerifier.create(result)
+                        .verifyErrorSatisfies(e -> assertThat(e)
+                                .isInstanceOf(OtherInternalApiException.class)
+                                .extracting(Throwable::getMessage)
+                                .isNotNull());
         }
 
     }

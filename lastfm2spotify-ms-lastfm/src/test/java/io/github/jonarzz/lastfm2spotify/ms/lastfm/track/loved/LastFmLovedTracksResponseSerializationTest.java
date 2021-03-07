@@ -2,19 +2,19 @@ package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
 import static java.util.Collections.singletonList;
 
-import io.github.jonarzz.lastfm2spotify.commons.test.BaseDeserializerTest;
+import io.github.jonarzz.lastfm2spotify.commons.test.BaseSerializationTest;
 import org.junit.jupiter.api.DisplayName;
 
 import java.util.Map;
 
-@DisplayName("Loved tracks API response deserializer tests")
-class LastFmLovedTracksResponseDeserializerTest extends BaseDeserializerTest<LastFmLovedTracksResponse> {
+@DisplayName("Loved tracks API response serialization tests")
+class LastFmLovedTracksResponseSerializationTest extends BaseSerializationTest<LastFmLovedTracksResponse> {
 
     private static final int PER_PAGE = 50;
     private static final int TOTAL = 73;
     private static final int TOTAL_PAGES = 2;
 
-    protected LastFmLovedTracksResponseDeserializerTest() {
+    protected LastFmLovedTracksResponseSerializationTest() {
         super(LastFmLovedTracksResponse.class);
     }
 
@@ -24,6 +24,11 @@ class LastFmLovedTracksResponseDeserializerTest extends BaseDeserializerTest<Las
                 jsonToExpectedObject(1, "Pink Floyd", "Money"),
                 jsonToExpectedObject(2, "Led Zeppelin", "Immigrant song")
         );
+    }
+
+    @Override
+    protected boolean shouldOnlyTestDeserialization() {
+        return true;
     }
 
     private static Map.Entry<String, LastFmLovedTracksResponse> jsonToExpectedObject(int page, String artist, String title) {

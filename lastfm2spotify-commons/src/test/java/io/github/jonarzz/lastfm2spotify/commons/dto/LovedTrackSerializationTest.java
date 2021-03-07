@@ -1,14 +1,14 @@
-package io.github.jonarzz.lastfm2spotify.commons.test;
+package io.github.jonarzz.lastfm2spotify.commons.dto;
 
-import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
+import io.github.jonarzz.lastfm2spotify.commons.test.BaseSerializationTest;
 import org.junit.jupiter.api.DisplayName;
 
 import java.util.Map;
 
-@DisplayName("Loved track deserializer tests")
-class LovedTrackDeserializerTest extends BaseDeserializerTest<LovedTrack> {
+@DisplayName("Loved track serialization tests")
+class LovedTrackSerializationTest extends BaseSerializationTest<LovedTrack> {
 
-    protected LovedTrackDeserializerTest() {
+    protected LovedTrackSerializationTest() {
         super(LovedTrack.class);
     }
 

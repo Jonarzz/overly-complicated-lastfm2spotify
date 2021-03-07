@@ -1,5 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.MicroserviceIntegrationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,13 +26,13 @@ class MigrationConfiguration {
 
     @Bean
     MigrationService migrationService(MigrationEventEmitters<String> migrationEventEmitters,
-                                      LastFmMicroserviceClient lastFmMicroserviceClient) {
-        return new MigrationService(lastFmMicroserviceClient, migrationEventEmitters);
+                                      LastFmServiceClient lastFmServiceClient) {
+        return new MigrationService(lastFmServiceClient, migrationEventEmitters);
     }
 
     @Bean
-    LastFmMicroserviceClient lastFmMicroserviceClient(WebClient lastFmMsClient) {
-        return new LastFmMicroserviceClient(lastFmMsClient);
+    LastFmServiceClient lastFmMicroserviceClient(WebClient lastFmMsClient, ObjectMapper objectMapper) {
+        return new LastFmServiceClient(lastFmMsClient, objectMapper);
     }
 
     @Bean
