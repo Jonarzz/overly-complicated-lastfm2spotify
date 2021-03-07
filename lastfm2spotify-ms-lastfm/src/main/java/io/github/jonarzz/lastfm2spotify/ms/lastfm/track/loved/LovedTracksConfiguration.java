@@ -16,13 +16,13 @@ class LovedTracksConfiguration {
 
     @Bean
     LovedTracksService lovedTracksService(WebClient lastFmApiClient) {
-        return new LovedTracksService(lastFmApiClient, properties.apiKey(), properties.singlePageLimit());
+        return new LovedTracksService(lastFmApiClient, properties.getApiKey(), properties.getSinglePageLimit());
     }
 
     @Bean
     WebClient lastFmApiClient() {
         return WebClient.builder()
-                        .baseUrl(properties.baseUrl())
+                        .baseUrl(properties.getBaseUrl())
                         .build();
     }
 

@@ -1,6 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
-import org.springframework.beans.factory.annotation.Value;
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.IntegrationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -35,13 +35,13 @@ class MigrationConfiguration {
     }
 
     @Bean
-    WebClient lastFmMsClient(@Value("${lastfm2spotify.integration.ms.lastfm.base-url}") String baseUrl) {
-        return createWebClient(baseUrl);
+    WebClient lastFmMsClient(IntegrationProperties.LastFm lastFmIntegrationProperties) {
+        return createWebClient(lastFmIntegrationProperties.getBaseUrl());
     }
 
     @Bean
-    WebClient spotifyMsClient(@Value("${lastfm2spotify.integration.ms.spotify.base-url}") String baseUrl) {
-        return createWebClient(baseUrl);
+    WebClient spotifyMsClient(IntegrationProperties.Spotify spotifyIntegrationProperties) {
+        return createWebClient(spotifyIntegrationProperties.getBaseUrl());
     }
 
     private static WebClient createWebClient(String baseUrl) {

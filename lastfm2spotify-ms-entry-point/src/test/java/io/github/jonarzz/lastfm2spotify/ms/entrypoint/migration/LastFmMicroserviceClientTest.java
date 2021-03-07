@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import io.github.jonarzz.lastfm2spotify.commons.error.ExternalApiUnavailableException;
 import io.github.jonarzz.lastfm2spotify.commons.error.ResourceNotFoundException;
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.IntegrationProperties;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -27,9 +29,20 @@ class LastFmMicroserviceClientTest {
             .stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 
     private MigrationConfiguration configuration = new MigrationConfiguration();
-    private WebClient lastFmMsClient = configuration.lastFmMsClient("http://localhost:%s".formatted(stubPort));
+    private String baseUrlWithoutTrailingSlash = "http://localhost:%s".formatted(stubPort);
+    private IntegrationProperties.LastFm lastFmIntegrationProperties = new IntegrationProperties.LastFm();
+    {
+        lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash);
+    }
+    private WebClient lastFmMsClient = configuration.lastFmMsClient(lastFmIntegrationProperties);
 
     private LastFmMicroserviceClient testedClient = new LastFmMicroserviceClient(lastFmMsClient);
+
+
+    @BeforeEach
+    void setUp() {
+        lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash);
+    }
 
     @Nested
     @DisplayName("Get loved tracks")
@@ -62,6 +75,17 @@ class LastFmMicroserviceClientTest {
         @Test
         @DisplayName("Get no tracks")
         void getNoTracks() {
+            Flux<LovedTrack> result = testedClient.getLovedTracks("no_loved_tracks_user");
+
+            StepVerifier.create(result)
+                        .verifyComplete();
+        }
+
+        @Test
+        @DisplayName("Get no tracks - URL in properties with trailing slash")
+        void getNoTracks_urlInPropertiesWithTrailingSlash() {
+            lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash + "/");
+
             Flux<LovedTrack> result = testedClient.getLovedTracks("no_loved_tracks_user");
 
             StepVerifier.create(result)
