@@ -8,14 +8,20 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+@Getter
+@Setter
 @Validated
-@ConfigurationProperties(prefix = "lastfm2spotify.integration")
-public class IntegrationProperties {
+@ConfigurationProperties(prefix = "lastfm2spotify.integration.ms")
+public class MicroserviceIntegrationProperties {
+
+    @NotNull
+    private ServiceInformation lastFm;
+    @NotNull
+    private ServiceInformation spotify;
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "lastfm")
-    public static class LastFm {
+    public static class ServiceInformation {
 
         @NotNull
         @Pattern(regexp = "^https?://.+$")
@@ -23,14 +29,4 @@ public class IntegrationProperties {
 
     }
 
-    @Getter
-    @Setter
-    @ConfigurationProperties(prefix = "spotify")
-    public static class Spotify {
-
-        @NotNull
-        @Pattern(regexp = "^https?://.+$")
-        private String baseUrl;
-
-    }
 }

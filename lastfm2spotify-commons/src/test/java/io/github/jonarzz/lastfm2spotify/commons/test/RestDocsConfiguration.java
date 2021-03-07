@@ -10,30 +10,33 @@ import org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class RestDocsConfiguration {
 
     private RestDocsConfiguration() {
     }
 
-    public static <T> Consumer<EntityExchangeResult<T>> document(String identifier) {
+    public static <T> Consumer<EntityExchangeResult<T>> documentWithoutPrettyPrint(String identifier, String... additionalIgnoredHeaders) {
         return WebTestClientRestDocumentation.document(identifier,
-                                                       preprocessRequest(requestPreprocessors()),
-                                                       preprocessResponse(responsePreprocessors()));
+                                                       preprocessRequest(headersPreprocessor(additionalIgnoredHeaders)),
+                                                       preprocessResponse(headersPreprocessor(additionalIgnoredHeaders)));
     }
 
-    static OperationPreprocessor[] requestPreprocessors() {
-        return new OperationPreprocessor[] {
-                prettyPrint(),
-                removeHeaders("Host", "Content-Length")
-        };
+    public static <T> Consumer<EntityExchangeResult<T>> documentWithPrettyPrint(String identifier, String... additionalIgnoredHeaders) {
+        return WebTestClientRestDocumentation.document(identifier,
+                                                       preprocessRequest(prettyPrint(),
+                                                                         headersPreprocessor(additionalIgnoredHeaders)),
+                                                       preprocessResponse(prettyPrint(),
+                                                                          headersPreprocessor(additionalIgnoredHeaders)));
     }
 
-    static OperationPreprocessor[] responsePreprocessors() {
-        return new OperationPreprocessor[] {
-                prettyPrint(),
-                removeHeaders("Vary", "Content-Length")
-        };
+    private static OperationPreprocessor headersPreprocessor(String... additionalIgnoredHeaders) {
+        String[] headers = Stream.concat(
+                Stream.of("Accept", "Content-Length", "Host", "Vary"),
+                Stream.of(additionalIgnoredHeaders)
+        ).toArray(String[]::new);
+        return removeHeaders(headers);
     }
 
 }

@@ -11,7 +11,7 @@ Contract.make {
     }
 
     response {
-        status OK()
+        status NO_CONTENT()
         body("")
     }
 

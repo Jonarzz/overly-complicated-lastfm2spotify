@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EnableConfigurationProperties({IntegrationProperties.class, IntegrationProperties.LastFm.class, IntegrationProperties.Spotify.class})
+@EnableConfigurationProperties(MicroserviceIntegrationProperties.class)
 public class LastFmToSpotifyEntryPointMicroserviceApplication {
 
     public static void main(String[] args) {

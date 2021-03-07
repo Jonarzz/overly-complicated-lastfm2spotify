@@ -1,7 +1,26 @@
-= Loved tracks API
+= Loved tracks
+
+== User has loved tracks
+Request
+include::{snippets}/loved/multipleResults/http-request.adoc[]
+Response
+include::{snippets}/loved/multipleResults/http-response.adoc[]
+Entries are streamed in http://ndjson.org/[NDJSON] format.
 
 == User has no loved tracks
 Request
-include::{snippets}/LovedTest_validate_shouldReturnEmptyIfNoLovedTracksFound()/http-request.adoc[]
+include::{snippets}/loved/userWithNoLovedTracks/http-request.adoc[]
 Response
-include::{snippets}/LovedTest_validate_shouldReturnEmptyIfNoLovedTracksFound()/http-response.adoc[]
+include::{snippets}/loved/userWithNoLovedTracks/http-response.adoc[]
+
+== User does not exist
+Request
+include::{snippets}/loved/userNotFound/http-request.adoc[]
+Response
+include::{snippets}/loved/userNotFound/http-response.adoc[]
+
+== LastFM API unavailable
+Request
+include::{snippets}/loved/lastFmApiUnavailable/http-request.adoc[]
+Response
+include::{snippets}/loved/lastFmApiUnavailable/http-response.adoc[]

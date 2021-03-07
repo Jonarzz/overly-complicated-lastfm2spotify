@@ -16,7 +16,7 @@ import java.util.Map;
 public abstract class BaseDeserializerTest<T> {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    
+
     private Class<T> deserializedClass;
     private CollectionType collectionType;
 

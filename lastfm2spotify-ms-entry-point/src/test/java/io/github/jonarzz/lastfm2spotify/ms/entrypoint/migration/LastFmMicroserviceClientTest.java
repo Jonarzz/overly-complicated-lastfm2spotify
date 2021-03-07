@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import io.github.jonarzz.lastfm2spotify.commons.error.ExternalApiUnavailableException;
 import io.github.jonarzz.lastfm2spotify.commons.error.ResourceNotFoundException;
-import io.github.jonarzz.lastfm2spotify.ms.entrypoint.IntegrationProperties;
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.MicroserviceIntegrationProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -30,18 +30,22 @@ class LastFmMicroserviceClientTest {
 
     private MigrationConfiguration configuration = new MigrationConfiguration();
     private String baseUrlWithoutTrailingSlash = "http://localhost:%s".formatted(stubPort);
-    private IntegrationProperties.LastFm lastFmIntegrationProperties = new IntegrationProperties.LastFm();
+    private MicroserviceIntegrationProperties integrationProperties = new MicroserviceIntegrationProperties();
+
     {
+        MicroserviceIntegrationProperties.ServiceInformation lastFmIntegrationProperties = new MicroserviceIntegrationProperties.ServiceInformation();
+        integrationProperties.setLastFm(lastFmIntegrationProperties);
         lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash);
     }
-    private WebClient lastFmMsClient = configuration.lastFmMsClient(lastFmIntegrationProperties);
+
+    private WebClient lastFmMsClient = configuration.lastFmMsClient(integrationProperties);
 
     private LastFmMicroserviceClient testedClient = new LastFmMicroserviceClient(lastFmMsClient);
 
-
     @BeforeEach
     void setUp() {
-        lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash);
+        integrationProperties.getLastFm()
+                             .setBaseUrl(baseUrlWithoutTrailingSlash);
     }
 
     @Nested
@@ -84,7 +88,8 @@ class LastFmMicroserviceClientTest {
         @Test
         @DisplayName("Get no tracks - URL in properties with trailing slash")
         void getNoTracks_urlInPropertiesWithTrailingSlash() {
-            lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash + "/");
+            integrationProperties.getLastFm()
+                                 .setBaseUrl(baseUrlWithoutTrailingSlash + "/");
 
             Flux<LovedTrack> result = testedClient.getLovedTracks("no_loved_tracks_user");
 

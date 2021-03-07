@@ -1,6 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
-import static io.github.jonarzz.lastfm2spotify.commons.test.RestDocsConfiguration.document;
+import static io.github.jonarzz.lastfm2spotify.commons.test.RestDocsConfiguration.documentWithPrettyPrint;
 import static org.mockito.Mockito.when;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -65,7 +65,7 @@ class MigrationControllerTests {
               .expectStatus().isOk()
               .expectHeader().contentTypeCompatibleWith(MediaType.TEXT_EVENT_STREAM)
               .expectBodyList(String.class)
-              .consumeWith(document("lovedMigrationStatus"))
+              .consumeWith(documentWithPrettyPrint("lovedMigrationStatus"))
               .hasSize(events.length)
               .contains(events);
     }
@@ -82,13 +82,13 @@ class MigrationControllerTests {
 
         client.post()
               .uri("/migration/{lastFmUsername}/loved", lastFmUsername)
-              .body(fromValue("{\"name\": \"%s\"}" .formatted(playlistName)))
+              .body(fromValue("{\"name\": \"%s\"}".formatted(playlistName)))
               .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
               .exchange()
               .expectStatus().isOk()
               .expectHeader().contentType(MediaType.APPLICATION_JSON)
               .expectBody()
-              .consumeWith(document("playlistWithOnlyRequiredFields"))
+              .consumeWith(documentWithPrettyPrint("playlistWithOnlyRequiredFields"))
               .jsonPath("$", expectedPlaylistUrl);
     }
 
@@ -108,7 +108,7 @@ class MigrationControllerTests {
               .expectStatus().isOk()
               .expectHeader().contentType(MediaType.APPLICATION_JSON)
               .expectBody()
-              .consumeWith(document("playlistWithAllFields"))
+              .consumeWith(documentWithPrettyPrint("playlistWithAllFields"))
               .jsonPath("$", expectedPlaylistUrl);
     }
 
