@@ -2,6 +2,6 @@
 
 == Spotify authorization
 Request
-include::{snippets}/spotifyAuth/http-request.adoc[]
+include::{snippets}/spotifyLoginUrl/http-request.adoc[]
 Response
-include::{snippets}/spotifyAuth/http-response.adoc[]
+include::{snippets}/spotifyLoginUrl/http-response.adoc[]

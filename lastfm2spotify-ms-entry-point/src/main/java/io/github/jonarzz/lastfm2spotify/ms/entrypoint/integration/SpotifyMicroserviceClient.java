@@ -24,7 +24,11 @@ public class SpotifyMicroserviceClient {
 
     public boolean addTrack(CreatedPlaylist createdPlaylist, LovedTrack lovedTrack) {
         // TODO call ms-spotify GET /track?query="..."
+        webClient.get()
+                 .uri("TODO", lovedTrack.getArtist(), lovedTrack.getTitle());
         // TODO call ms-spotify POST /playlist/{id}/{trackId}
+        webClient.post()
+                 .uri("TODO", createdPlaylist.getPlaylistData().getName());
         return true;
     }
 
