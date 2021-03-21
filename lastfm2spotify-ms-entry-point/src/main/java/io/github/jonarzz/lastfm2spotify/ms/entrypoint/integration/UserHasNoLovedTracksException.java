@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
+package io.github.jonarzz.lastfm2spotify.ms.entrypoint.integration;
 
 class UserHasNoLovedTracksException extends RuntimeException {
 

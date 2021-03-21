@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
+package io.github.jonarzz.lastfm2spotify.ms.entrypoint.integration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +14,9 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
 import java.util.function.Function;
 
-class LastFmServiceClient {
+public class LastFmServiceClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LastFmServiceClient.class);
 
@@ -29,7 +28,7 @@ class LastFmServiceClient {
         this.objectMapper = objectMapper;
     }
 
-    Flux<LovedTrack> getLovedTracks(String lastFmUsername) {
+    public Flux<LovedTrack> getLovedTracks(String lastFmUsername) {
         return lastFmMsClient.get()
                              .uri("tracks/loved/{lastFmUsername}", lastFmUsername)
                              .retrieve()

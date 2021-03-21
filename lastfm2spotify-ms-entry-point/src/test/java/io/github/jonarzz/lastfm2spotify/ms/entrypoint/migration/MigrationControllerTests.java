@@ -1,38 +1,29 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
-import static io.github.jonarzz.lastfm2spotify.commons.test.RestDocsConfiguration.documentWithPrettyPrint;
+import static io.github.jonarzz.lastfm2spotify.commons.test.reactive.ReactiveTestUtils.emitEvents;
+import static io.github.jonarzz.lastfm2spotify.commons.test.web.RestDocsConfiguration.documentWithPrettyPrint;
 import static org.mockito.Mockito.when;
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.CreatedPlaylist;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.PlaylistToCreate;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.PrivacyConfig;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.SongsOrdering;
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.testutil.DocumentedControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
-
+@DocumentedControllerTest
 @DisplayName("Migration controller tests")
 @WebFluxTest(MigrationController.class)
-@TestPropertySource(properties = "lastfm2spotify.web.accepted-origin-host=localhost")
-@AutoConfigureRestDocs
-@ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 class MigrationControllerTests {
 
     @MockBean
@@ -78,7 +69,8 @@ class MigrationControllerTests {
         PlaylistToCreate playlistToCreate = PlaylistToCreate.withName(playlistName);
         String expectedPlaylistUrl = "https://accounts.spotify.com/pl/authorize?client_id=987";
         when(migrationService.migrateLastFmLovedTracksToSpotifyPlaylist(lastFmUsername, playlistToCreate))
-                .thenReturn(URI.create(expectedPlaylistUrl));
+                .thenReturn(Mono.just(CreatedPlaylist.beforeCreation(playlistToCreate)
+                                                     .created("playlist id", expectedPlaylistUrl)));
 
         client.post()
               .uri("/migration/{lastFmUsername}/loved", lastFmUsername)
@@ -99,7 +91,8 @@ class MigrationControllerTests {
         PlaylistToCreate playlistToCreate = PlaylistToCreate.withConfiguration("My best playlist", PrivacyConfig.PRIVATE, SongsOrdering.NEW_LAST);
         String expectedPlaylistUrl = "https://accounts.spotify.com/pl/authorize?client_id=123";
         when(migrationService.migrateLastFmLovedTracksToSpotifyPlaylist(lastFmUsername, playlistToCreate))
-                .thenReturn(URI.create(expectedPlaylistUrl));
+                .thenReturn(Mono.just(CreatedPlaylist.beforeCreation(playlistToCreate)
+                                                     .created("playlist id", expectedPlaylistUrl)));
 
         client.post()
               .uri("/migration/{lastFmUsername}/loved", lastFmUsername)
@@ -110,19 +103,6 @@ class MigrationControllerTests {
               .expectBody()
               .consumeWith(documentWithPrettyPrint("playlistWithAllFields"))
               .jsonPath("$", expectedPlaylistUrl);
-    }
-
-    @SafeVarargs
-    private <T> void emitEvents(FluxSink<T> sink, T... events) {
-        Stream.of(events)
-              .forEach(event -> {
-                  try {
-                      TimeUnit.MILLISECONDS.sleep(50);
-                  } catch (InterruptedException e) {
-                      Thread.currentThread().interrupt();
-                  }
-                  sink.next(event);
-              });
     }
 
 }

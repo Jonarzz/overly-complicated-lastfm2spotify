@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.commons.test;
+package io.github.jonarzz.lastfm2spotify.commons.test.web;
 
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
@@ -8,7 +8,6 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.re
 import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
-
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 

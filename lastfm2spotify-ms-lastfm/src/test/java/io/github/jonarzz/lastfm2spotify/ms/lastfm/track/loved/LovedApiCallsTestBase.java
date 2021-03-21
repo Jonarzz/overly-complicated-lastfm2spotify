@@ -1,10 +1,10 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved;
 
-import static io.github.jonarzz.lastfm2spotify.commons.test.RestDocsConfiguration.documentWithoutPrettyPrint;
+import static io.github.jonarzz.lastfm2spotify.commons.test.web.RestDocsConfiguration.documentWithoutPrettyPrint;
 import static java.time.Duration.ofSeconds;
 
 import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
-import io.github.jonarzz.lastfm2spotify.commons.test.WebTestClientBasedTest;
+import io.github.jonarzz.lastfm2spotify.commons.test.web.WebTestClientBasedTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,8 +24,7 @@ import reactor.test.StepVerifier;
 @TestPropertySource(properties = {
         "lastfm2spotify.api.lastfm.base-url=http://localhost:${wiremock.server.port}",
         "lastfm2spotify.api.lastfm.api-key=a1b2c3d4e5f6g7h8i9j0xyzqwerty123",
-        "lastfm2spotify.api.lastfm.single-page-limit=1",
-        "logging.level.io.github.jonarzz=debug"
+        "lastfm2spotify.api.lastfm.single-page-limit=1"
 
 })
 @DisplayName("Loved tracks API calls")

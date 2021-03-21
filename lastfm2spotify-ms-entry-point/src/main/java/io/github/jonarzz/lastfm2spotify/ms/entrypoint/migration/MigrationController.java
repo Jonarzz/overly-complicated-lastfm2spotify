@@ -1,5 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
 
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.CreatedPlaylist;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.PlaylistToCreate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-
+import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -38,10 +39,12 @@ public class MigrationController {
     }
 
     @PostMapping("{lastFmUsername}/loved")
-    public URI migrateLastFmLovedTracksToSpotifyPlaylist(@PathVariable String lastFmUsername,
-                                                         @RequestBody @Valid PlaylistToCreate playlist) {
+    public Mono<URI> migrateLastFmLovedTracksToSpotifyPlaylist(@PathVariable String lastFmUsername,
+                                                               @RequestBody @Valid PlaylistToCreate playlist) {
         LOGGER.info("Starting LastFM user '{}' loved tracks migration to Spotify playlist: {}", lastFmUsername, playlist);
-        return migrationService.migrateLastFmLovedTracksToSpotifyPlaylist(lastFmUsername, playlist);
+        return migrationService.migrateLastFmLovedTracksToSpotifyPlaylist(lastFmUsername, playlist)
+                               .map(CreatedPlaylist::getUrl)
+                               .map(URI::create);
     }
 
 }

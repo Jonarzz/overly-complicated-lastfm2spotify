@@ -1,4 +1,4 @@
-package io.github.jonarzz.lastfm2spotify.ms.entrypoint.migration;
+package io.github.jonarzz.lastfm2spotify.ms.entrypoint.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -7,15 +7,13 @@ import io.github.jonarzz.lastfm2spotify.commons.dto.LovedTrack;
 import io.github.jonarzz.lastfm2spotify.commons.error.ExternalApiUnavailableException;
 import io.github.jonarzz.lastfm2spotify.commons.error.OtherInternalApiException;
 import io.github.jonarzz.lastfm2spotify.commons.error.ResourceNotFoundException;
-import io.github.jonarzz.lastfm2spotify.ms.entrypoint.MicroserviceIntegrationProperties;
-import org.junit.jupiter.api.BeforeEach;
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.integration.IntegrationProperties.MicroserviceConfiguration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.cloud.contract.stubrunner.junit.StubRunnerExtension;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
@@ -30,24 +28,17 @@ class LastFmServiceClientTest {
             .withPort(stubPort)
             .stubsMode(StubRunnerProperties.StubsMode.LOCAL);
 
-    private MigrationConfiguration configuration = new MigrationConfiguration();
-    private String baseUrlWithoutTrailingSlash = "http://localhost:%s".formatted(stubPort);
-    private MicroserviceIntegrationProperties integrationProperties = new MicroserviceIntegrationProperties();
+    private final LastFmServiceClient testedClient;
 
-    {
-        MicroserviceIntegrationProperties.ServiceInformation lastFmIntegrationProperties = new MicroserviceIntegrationProperties.ServiceInformation();
-        integrationProperties.setLastFm(lastFmIntegrationProperties);
-        lastFmIntegrationProperties.setBaseUrl(baseUrlWithoutTrailingSlash);
-    }
+    LastFmServiceClientTest() {
+        MicroserviceConfiguration lastFmConfiguration = new MicroserviceConfiguration();
+        lastFmConfiguration.setBaseUrl("http://localhost:%s/".formatted(stubPort));
 
-    private WebClient lastFmMsClient = configuration.lastFmMsClient(integrationProperties);
+        IntegrationProperties integrationProperties = new IntegrationProperties();
+        integrationProperties.setLastFm(lastFmConfiguration);
 
-    private LastFmServiceClient testedClient = new LastFmServiceClient(lastFmMsClient, new ObjectMapper());
-
-    @BeforeEach
-    void setUp() {
-        integrationProperties.getLastFm()
-                             .setBaseUrl(baseUrlWithoutTrailingSlash);
+        testedClient = new IntegrationConfiguration(integrationProperties)
+                .lastFmMicroserviceClient(new ObjectMapper());
     }
 
     @Nested

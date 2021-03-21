@@ -1,17 +1,12 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
-@Getter
-@ToString
-@EqualsAndHashCode
+@Data
 public class PlaylistToCreate {
 
     private static final int MIN_NAME_LENGTH = 1;
@@ -41,4 +36,3 @@ public class PlaylistToCreate {
     }
 
 }
-

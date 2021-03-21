@@ -1,38 +1,41 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.auth;
 
-import static io.github.jonarzz.lastfm2spotify.commons.test.RestDocsConfiguration.documentWithPrettyPrint;
+import static io.github.jonarzz.lastfm2spotify.commons.test.web.RestDocsConfiguration.documentWithoutPrettyPrint;
+import static org.mockito.Mockito.when;
 
+import io.github.jonarzz.lastfm2spotify.ms.entrypoint.testutil.DocumentedControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import java.net.URI;
 
+@DocumentedControllerTest
 @DisplayName("Authorization controller tests")
 @WebFluxTest(AuthorizationController.class)
-@TestPropertySource(properties = "lastfm2spotify.web.accepted-origin-host=localhost")
-@AutoConfigureRestDocs
-@ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 class AuthorizationControllerTest {
 
+    @MockBean
+    private AuthorizationService authorizationService;
     @Autowired
     private WebTestClient client;
 
     @Test
-    @DisplayName("Login to Spotify (redirection)")
-    void loginToSpotify() {
+    @DisplayName("Get Spotify login URL")
+    void getSpotifyLoginUrl() {
+        String loginUrl = "https://accounts.spotify.com/pl/authorize?client_id=123";
+        when(authorizationService.getSpotifyLoginUrl())
+                .thenReturn(URI.create(loginUrl));
+
         client.get()
               .uri("/auth/spotify")
               .exchange()
               .expectStatus().isFound()
-              .expectHeader().location("https://accounts.spotify.com/pl/authorize?client_id=123")
-              .expectBody()
-              .consumeWith(documentWithPrettyPrint("spotifyAuth"));
+              .expectHeader().location(loginUrl)
+              .expectBody(Void.class)
+              .consumeWith(documentWithoutPrettyPrint("spotifyLoginUrl"));
     }
 
 }

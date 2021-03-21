@@ -1,7 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.lastfm;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
@@ -9,8 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-@Getter
-@Setter
+@Data
 @Validated
 @ConfigurationProperties(prefix = "lastfm2spotify.api.lastfm")
 public class LastFmApiProperties {
