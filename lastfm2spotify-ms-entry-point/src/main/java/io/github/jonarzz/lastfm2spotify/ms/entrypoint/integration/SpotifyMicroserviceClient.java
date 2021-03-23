@@ -13,7 +13,7 @@ public class SpotifyMicroserviceClient {
         this.webClient = webClient;
     }
 
-    public Optional<String> getSpotifyLoginUrl() {
+    public Optional<String> getSpotifyLoginUri() {
         return Optional.empty();
     }
 

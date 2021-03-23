@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("auth")
-@CrossOrigin("${lastfm2spotify.web.accepted-origin-host}")
+@CrossOrigin("${lastfm2spotify.entrypoint-ms.web.accepted-origin-host}")
 public class AuthorizationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationController.class);
@@ -23,10 +23,10 @@ public class AuthorizationController {
     }
 
     @GetMapping("spotify")
-    public ResponseEntity<Void> getSpotifyLoginUrl() {
+    public ResponseEntity<Void> getSpotifyLoginUri() {
         LOGGER.info("Spotify login URI requested");
         return ResponseEntity.status(HttpStatus.FOUND)
-                             .location(authorizationService.getSpotifyLoginUrl())
+                             .location(authorizationService.getSpotifyLoginUri())
                              .build();
     }
 

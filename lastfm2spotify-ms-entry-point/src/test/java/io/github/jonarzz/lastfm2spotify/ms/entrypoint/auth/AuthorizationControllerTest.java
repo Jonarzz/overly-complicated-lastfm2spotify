@@ -23,10 +23,10 @@ class AuthorizationControllerTest {
     private WebTestClient client;
 
     @Test
-    @DisplayName("Get Spotify login URL")
-    void getSpotifyLoginUrl() {
+    @DisplayName("Get Spotify login URI")
+    void getSpotifyLoginUri() {
         String loginUrl = "https://accounts.spotify.com/pl/authorize?client_id=123";
-        when(authorizationService.getSpotifyLoginUrl())
+        when(authorizationService.getSpotifyLoginUri())
                 .thenReturn(URI.create(loginUrl));
 
         client.get()

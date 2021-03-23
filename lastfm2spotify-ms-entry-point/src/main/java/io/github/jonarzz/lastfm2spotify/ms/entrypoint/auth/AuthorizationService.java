@@ -11,8 +11,8 @@ class AuthorizationService {
         this.spotifyClient = spotifyClient;
     }
 
-    URI getSpotifyLoginUrl() {
-        return spotifyClient.getSpotifyLoginUrl()
+    URI getSpotifyLoginUri() {
+        return spotifyClient.getSpotifyLoginUri()
                             .map(URI::create)
                             .orElseThrow(); // TODO exception + handler
     }

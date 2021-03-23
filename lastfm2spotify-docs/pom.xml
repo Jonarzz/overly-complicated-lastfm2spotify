@@ -20,22 +20,18 @@
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-commons</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-ms-entry-point</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-ms-lastfm</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-ms-spotify</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 

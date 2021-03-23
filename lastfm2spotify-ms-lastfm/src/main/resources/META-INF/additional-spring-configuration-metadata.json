@@ -1,9 +1,14 @@
 {
   "properties": [
     {
+      "name": "lastfm2spotify.lastfm-ms.web.accepted-origin-host",
+      "type": "java.lang.String",
+      "description": "Host for which requests may be handled by the application (Cross-Origin Resource Sharing)."
+    },
+    {
       "name": "lastfm2spotify.api.lastfm.base-url",
       "type": "java.lang.String",
-      "description": "Base URL of LastFM API."
+      "description": "Base URL of LastFM API (see: https://www.last.fm/api/intro)."
     },
     {
       "name": "lastfm2spotify.api.lastfm.single-page-limit",

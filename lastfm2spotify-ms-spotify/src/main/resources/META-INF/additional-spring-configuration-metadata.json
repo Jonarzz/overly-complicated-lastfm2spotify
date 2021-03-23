@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "lastfm2spotify.spotify-ms.web.accepted-origin-host",
+      "type": "java.lang.String",
+      "description": "Host for which requests may be handled by the application (Cross-Origin Resource Sharing)."
+    },
+    {
+      "name": "lastfm2spotify.api.spotify.auth.access.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL of Spotify authorization access API (see: https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow)."
+    },
+    {
+      "name": "lastfm2spotify.api.spotify.auth.access.client-id",
+      "type": "java.lang.String",
+      "description": "Spotify Client ID (see: https://developer.spotify.com/dashboard/applications)."
+    }
+  ]
+}

@@ -22,6 +22,7 @@ import reactor.test.StepVerifier;
 @AutoConfigureWireMock(port = 0)
 @AutoConfigureWebTestClient
 @TestPropertySource(properties = {
+        "lastfm2spotify.lastfm-ms.web.accepted-origin-host=localhost",
         "lastfm2spotify.api.lastfm.base-url=http://localhost:${wiremock.server.port}",
         "lastfm2spotify.api.lastfm.api-key=a1b2c3d4e5f6g7h8i9j0xyzqwerty123",
         "lastfm2spotify.api.lastfm.single-page-limit=1"

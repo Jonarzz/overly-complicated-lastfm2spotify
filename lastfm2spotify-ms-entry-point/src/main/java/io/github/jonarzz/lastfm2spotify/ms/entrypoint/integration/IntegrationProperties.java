@@ -1,5 +1,6 @@
 package io.github.jonarzz.lastfm2spotify.ms.entrypoint.integration;
 
+import io.github.jonarzz.lastfm2spotify.commons.validation.ValidationPatterns;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
@@ -19,7 +20,7 @@ public class IntegrationProperties {
     @Data
     public static class MicroserviceConfiguration {
 
-        @Pattern(regexp = "^https?://.+?/$")
+        @Pattern(regexp = ValidationPatterns.URL)
         private String baseUrl;
 
     }

@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Inherited
 @AutoConfigureRestDocs
 @TestPropertySource(properties = {
-        "lastfm2spotify.web.accepted-origin-host=localhost",
+        "lastfm2spotify.entrypoint-ms.web.accepted-origin-host=localhost",
         "lastfm2spotify.integration.ms.lastfm.base-url=http://localhost/",
         "lastfm2spotify.integration.ms.spotify.base-url=http://localhost/"
 })
