@@ -447,6 +447,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_loved_tracks_2">Loved tracks</a></li>
 </ul>
 </li>
+<li><a href="#_spotify_internal">Spotify (internal)</a>
+<ul class="sectlevel2">
+<li><a href="#_authorization_2">Authorization</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -672,10 +677,39 @@ Content-Type: application/x-ndjson
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_spotify_internal">Spotify (internal)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_authorization_2">Authorization</h3>
+<div class="sect3">
+<h4 id="_get_access_uri">Get access URI</h4>
+<div class="paragraph">
+<p>Request</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /auth/access?redirectUri=http://redirect.com&amp;correlationId=R35Y3Z3N2O&amp;scopes=PLAYLIST_MODIFY_PUBLIC,PLAYLIST_MODIFY_PRIVATE HTTP/1.1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Response</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+
+"https://accounts.spotify.com/authorize"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-23 19:17:20 UTC
+Last updated 2021-03-24 19:19:03 UTC
 </div>
 </div>
 </body>
