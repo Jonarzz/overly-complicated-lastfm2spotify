@@ -39,7 +39,7 @@
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
                     <testMode>WEBTESTCLIENT</testMode>
-                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved.LovedApiCallsTestBase</baseClassForTests>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.lastfm.track.loved.LovedApiCallsTest</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

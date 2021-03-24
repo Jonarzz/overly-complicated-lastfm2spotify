@@ -21,6 +21,12 @@
             <groupId>io.github.jonarzz</groupId>
             <artifactId>lastfm2spotify-commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.jonarzz</groupId>
+            <artifactId>lastfm2spotify-commons</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -32,8 +38,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <testFramework>JUNIT5</testFramework>
-                    <!-- TODO remove after adding contracts -->
-                    <skip>true</skip>
+                    <testMode>WEBTESTCLIENT</testMode>
+                    <baseClassForTests>io.github.jonarzz.lastfm2spotify.ms.spotify.SpotifyRestContractTestBase</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>

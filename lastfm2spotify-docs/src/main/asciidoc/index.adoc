@@ -6,3 +6,6 @@ include::{baseDir}/lastfm2spotify-ms-entry-point/src/main/asciidoc/index.adoc[]
 
 :leveloffset: -1
 include::{baseDir}/lastfm2spotify-ms-lastfm/src/main/asciidoc/index.adoc[]
+
+:leveloffset: -1
+include::{baseDir}/lastfm2spotify-ms-spotify/src/main/asciidoc/index.adoc[]

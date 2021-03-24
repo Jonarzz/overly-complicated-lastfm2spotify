@@ -29,7 +29,7 @@ import reactor.test.StepVerifier;
 
 })
 @DisplayName("Loved tracks API calls")
-abstract class LovedApiCallsTestBase extends WebTestClientBasedTest {
+abstract class LovedApiCallsTest extends WebTestClientBasedTest {
 
     @Autowired
     private WebTestClient client;

@@ -8,11 +8,11 @@ import java.util.Collection;
 
 class AuthorizationService {
 
-    private static final String CLIENT_ID_PARAM = "client_id";
-    private static final String RESPONSE_TYPE_PARAM = "response_type";
     private static final String REDIRECT_URI_PARAM = "redirect_uri";
     private static final String STATE_PARAM = "state";
     private static final String SCOPE_PARAM = "scope";
+    private static final String CLIENT_ID_PARAM = "client_id";
+    private static final String RESPONSE_TYPE_PARAM = "response_type";
 
     private static final String RESPONSE_TYPE_VALUE = "token";
 
@@ -24,13 +24,12 @@ class AuthorizationService {
         this.clientId = clientId;
     }
 
-    URI getAccessUri(String redirectUri, String correlationId, Collection<Scope> scopes) {
-        // TODO testy
+    URI getAccessUri(AccessParams accessParams) {
         return UriComponentsBuilder.fromHttpUrl(accessBaseUrl)
+                                   .queryParam(REDIRECT_URI_PARAM, accessParams.getRedirectUri())
+                                   .queryParam(STATE_PARAM, accessParams.getCorrelationId())
+                                   .queryParam(SCOPE_PARAM, mapScopes(accessParams.getScopes()))
                                    .queryParam(CLIENT_ID_PARAM, clientId)
-                                   .queryParam(REDIRECT_URI_PARAM, redirectUri)
-                                   .queryParam(STATE_PARAM, correlationId)
-                                   .queryParam(SCOPE_PARAM, mapScopes(scopes))
                                    .queryParam(RESPONSE_TYPE_PARAM, RESPONSE_TYPE_VALUE)
                                    .build()
                                    .toUri();

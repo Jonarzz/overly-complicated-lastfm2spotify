@@ -1,0 +1,7 @@
+= Authorization
+
+== Get access URI
+Request
+include::{snippets}/auth/access/successful/http-request.adoc[]
+Response
+include::{snippets}/auth/access/successful/http-response.adoc[]
