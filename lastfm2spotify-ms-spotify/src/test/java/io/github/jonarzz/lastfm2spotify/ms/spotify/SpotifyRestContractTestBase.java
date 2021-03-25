@@ -15,7 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 
 })
 @DisplayName("Loved tracks API calls")
-abstract class SpotifyRestContractTestBase extends WebTestClientBasedTest {
+public abstract class SpotifyRestContractTestBase extends WebTestClientBasedTest {
 
 }
 

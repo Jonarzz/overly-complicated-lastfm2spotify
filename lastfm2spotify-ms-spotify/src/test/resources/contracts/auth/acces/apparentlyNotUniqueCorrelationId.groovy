@@ -1,27 +1,29 @@
-package contracts.auth
+package contracts.auth.acces
 
-import org.apache.commons.lang3.RandomStringUtils
+
 import org.springframework.cloud.contract.spec.Contract
 
 Contract.make {
-    description 'should return authorization access URI'
+    description 'should return bad request when the same correlation ID is repeatedly sent'
+
+    priority 2 // has to be executed after OK contract (same correlation ID value)
 
     request {
         method 'GET'
         urlPath('/auth/access') {
             queryParameters {
                 parameter 'redirectUri': 'http://redirect.com'
-                parameter 'correlationId': RandomStringUtils.randomAlphanumeric(20)
+                parameter 'correlationId': 'qwerty12345'
                 parameter 'scopes': 'PLAYLIST_MODIFY_PUBLIC,PLAYLIST_MODIFY_PRIVATE'
             }
         }
     }
 
     response {
-        status OK()
-        bodyMatchers {
-            jsonPath('$', byRegex('^https://.+$'))
-        }
+        status BAD_REQUEST()
+        body([
+            message: 'Correlation ID should be unique'
+        ])
     }
 
 }

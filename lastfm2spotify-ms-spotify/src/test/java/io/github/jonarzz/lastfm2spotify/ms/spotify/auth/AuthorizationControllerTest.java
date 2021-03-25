@@ -1,12 +1,15 @@
 package io.github.jonarzz.lastfm2spotify.ms.spotify.auth;
 
+import static io.github.jonarzz.lastfm2spotify.commons.test.web.RestDocsConfiguration.documentWithPrettyPrint;
 import static io.github.jonarzz.lastfm2spotify.commons.test.web.RestDocsConfiguration.documentWithoutPrettyPrint;
 import static io.github.jonarzz.lastfm2spotify.ms.spotify.auth.Scope.PLAYLIST_MODIFY_PRIVATE;
 import static io.github.jonarzz.lastfm2spotify.ms.spotify.auth.Scope.PLAYLIST_MODIFY_PUBLIC;
 import static java.util.stream.Collectors.joining;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 
+import io.github.jonarzz.lastfm2spotify.commons.dto.ValidationErrorResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,6 +43,9 @@ class AuthorizationControllerTest {
 
     private String correctRedirectUri = "http://redirect.com";
     private Collection<Scope> correctScopes = Set.of(PLAYLIST_MODIFY_PUBLIC, PLAYLIST_MODIFY_PRIVATE);
+    private String correctScopesParamValue = correctScopes.stream()
+                                                          .map(Enum::name)
+                                                          .collect(joining(","));
 
     @MockBean
     private AuthorizationService authorizationService;
@@ -64,15 +70,11 @@ class AuthorizationControllerTest {
     @DisplayName("Get access URI")
     void getAccessUri() {
         client.get()
-              .uri(builder -> {
-                  return builder.path("auth/access")
-                                .queryParam("redirectUri", correctRedirectUri)
-                                .queryParam("correlationId", RandomStringUtils.randomAlphanumeric(10))
-                                .queryParam("scopes", correctScopes.stream()
-                                                                   .map(Enum::name)
-                                                                   .collect(joining(",")))
-                                .build();
-              })
+              .uri(builder -> builder.path("auth/access")
+                                     .queryParam("redirectUri", correctRedirectUri)
+                                     .queryParam("correlationId", RandomStringUtils.randomAlphanumeric(10))
+                                     .queryParam("scopes", correctScopesParamValue)
+                                     .build())
               .exchange()
               .expectStatus().isOk()
               .expectBody(URI.class)
@@ -81,6 +83,34 @@ class AuthorizationControllerTest {
               .isEqualTo(correctUri);
     }
 
-    // TODO bad requests tests (also contracts)
+    @Test
+    @DisplayName("Apparently not unique correlation ID")
+    void apparentlyNotUniqueCorrelationId() {
+        String correlationId = RandomStringUtils.randomAlphanumeric(10);
+
+        client.get()
+              .uri(builder -> builder.path("auth/access")
+                                     .queryParam("redirectUri", correctRedirectUri)
+                                     .queryParam("correlationId", correlationId)
+                                     .queryParam("scopes", correctScopesParamValue)
+                                     .build())
+              .exchange()
+              .expectStatus().isOk();
+        client.get()
+              .uri(builder -> builder.path("auth/access")
+                                     .queryParam("redirectUri", correctRedirectUri)
+                                     .queryParam("correlationId", correlationId)
+                                     .queryParam("scopes", correctScopesParamValue)
+                                     .build())
+              .exchange()
+              .expectStatus().isBadRequest()
+              .expectBody(ValidationErrorResponse.class)
+              .consumeWith(documentWithPrettyPrint("auth/access/notUniqueCorrelationId"))
+              .value(response -> assertThat(response)
+                      .extracting("message")
+                      .isEqualTo("Correlation ID should be unique"));
+    }
+
+    // TODO other bad request tests + docs
 
 }
