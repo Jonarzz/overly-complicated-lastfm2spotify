@@ -27,7 +27,7 @@ public class AuthorizationController {
 
     @InitBinder("accessParams")
     private void initBinder(WebDataBinder binder) {
-        binder.addValidators(new CorrelationIdValidator());
+        binder.addValidators(AccessParamsCustomValidators.all());
     }
 
 }

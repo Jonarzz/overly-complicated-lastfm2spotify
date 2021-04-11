@@ -14,7 +14,7 @@ class AccessParams {
     @Pattern(regexp = ValidationPatterns.URL)
     private String redirectUri;
     @NotNull
-    @Pattern(regexp = ValidationPatterns.AT_LEAST_10_CHARS)
+    @Size(min = 10, max = 50)
     private String correlationId;
     @NotNull
     @Size(min = 1, max = 20)

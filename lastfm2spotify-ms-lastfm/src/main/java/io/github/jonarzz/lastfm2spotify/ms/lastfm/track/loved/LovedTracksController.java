@@ -16,7 +16,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @RequestMapping("tracks/loved")
 @CrossOrigin("lastfm2spotify.lastfm-ms.web.accepted-origin-host")
-public class LovedTracksController {
+public class LovedTracksController { // TODO RouterFunctions
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LovedTracksController.class);
 

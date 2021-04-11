@@ -12,7 +12,6 @@ import org.springframework.test.context.TestPropertySource;
         "lastfm2spotify.lastfm-ms.web.accepted-origin-host=localhost",
         "lastfm2spotify.api.spotify.auth.access.base-url=https://localhost:${wiremock.server.port}",
         "lastfm2spotify.api.spotify.auth.client-id=a1b2c3d4e5f6g7h8i9j0xyzqwerty123"
-
 })
 @DisplayName("Loved tracks API calls")
 public abstract class SpotifyRestContractTestBase extends WebTestClientBasedTest {

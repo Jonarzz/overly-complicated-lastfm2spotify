@@ -12,6 +12,8 @@ import io.github.jonarzz.lastfm2spotify.ms.entrypoint.playlist.SongsOrdering;
 import io.github.jonarzz.lastfm2spotify.ms.entrypoint.testutil.DocumentedControllerTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,6 +26,7 @@ import reactor.core.publisher.Mono;
 @DocumentedControllerTest
 @DisplayName("Migration controller tests")
 @WebFluxTest(MigrationController.class)
+@Execution(ExecutionMode.CONCURRENT)
 class MigrationControllerTests {
 
     @MockBean

@@ -19,6 +19,9 @@ Contract.make {
 
     response {
         status BAD_REQUEST()
+        body([
+                message: 'redirectUri must match "^https?://.+$"'
+        ])
     }
 
 }

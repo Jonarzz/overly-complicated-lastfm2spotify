@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0-SNAPSHOT</version>
+        <version>2.5.0-M2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,19 +26,19 @@
     <url>https://github.com/Jonarzz/${project.artifactId}</url>
 
     <properties>
-        <java.version>15</java.version>
+        <java.version>16</java.version>
         <!-- Sonar analysis configuration -->
         <sonar.projectKey>Jonarzz_${project.artifactId}</sonar.projectKey>
         <sonar.organization>jonarzz</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.coverage.jacoco.xmlReportPaths>../target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <!-- dependency versions -->
-        <spring-cloud.version>2020.0.2-SNAPSHOT</spring-cloud.version>
-        <spring-cloud.contract.version>3.0.2-SNAPSHOT</spring-cloud.contract.version>
+        <spring-cloud.version>2020.0.2</spring-cloud.version>
+        <spring-cloud.contract.version>3.0.2</spring-cloud.contract.version>
         <asciidoctor.version>1.5.8</asciidoctor.version>
         <jacoco.version>0.8.7-SNAPSHOT</jacoco.version>
         <guava.version>30.1-jre</guava.version>
-        <lombok.version>1.18.18</lombok.version>
+        <lombok.version>1.18.20</lombok.version>
     </properties>
 
     <dependencies>

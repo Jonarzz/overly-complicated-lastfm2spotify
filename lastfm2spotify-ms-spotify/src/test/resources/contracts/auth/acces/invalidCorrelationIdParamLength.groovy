@@ -19,6 +19,9 @@ Contract.make {
 
     response {
         status BAD_REQUEST()
+        body([
+                message: 'correlationId size must be between 10 and 50'
+        ])
     }
 
 }

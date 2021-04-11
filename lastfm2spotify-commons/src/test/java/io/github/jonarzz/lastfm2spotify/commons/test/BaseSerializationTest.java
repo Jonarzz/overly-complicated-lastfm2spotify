@@ -10,11 +10,13 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIf;
-
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+@Execution(ExecutionMode.CONCURRENT)
 public abstract class BaseSerializationTest<T> {
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -33,6 +35,7 @@ public abstract class BaseSerializationTest<T> {
 
     protected abstract Map<String, T> jsonToExpectedObject();
 
+    @SuppressWarnings("unused") // used in DisabledIf annotation
     protected boolean shouldOnlyTestDeserialization() {
         return false;
     }

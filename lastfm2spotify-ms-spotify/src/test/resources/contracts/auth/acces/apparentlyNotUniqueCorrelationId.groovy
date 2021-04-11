@@ -22,7 +22,7 @@ Contract.make {
     response {
         status BAD_REQUEST()
         body([
-            message: 'Correlation ID should be unique'
+            message: 'correlationId should be unique'
         ])
     }
 

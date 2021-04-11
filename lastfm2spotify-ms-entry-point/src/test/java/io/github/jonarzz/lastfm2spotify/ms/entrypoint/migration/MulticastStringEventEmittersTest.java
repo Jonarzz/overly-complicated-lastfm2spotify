@@ -8,14 +8,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
 import reactor.test.StepVerifier;
-
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @DisplayName("Multicast string event emitters tests")
+@Execution(ExecutionMode.CONCURRENT)
 class MulticastStringEventEmittersTest {
 
     private MigrationConfiguration configuration = new MigrationConfiguration();
